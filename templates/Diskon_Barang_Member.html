@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom right, #dce3ec, #f4f7fa);
+      animation: fadeIn 1s ease-in;
+      font-family: 'Courier New', Courier, monospace;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      flex-wrap: wrap;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    form {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 400px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    form:hover, .results:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    input[type="text"], input[type="number"],select {
+      width: 95%;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #3498db;
+      text-align: center;
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: scale(1.03);
+    }
+
+    .total{
+        font-weight: bold;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+    .receipt {
+      background: white;
+      width: 350px;
+      margin: auto;
+      padding: 20px;
+      border: 1px dashed #000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 13px;
+      color: #444;
+    }
+
+    .receipt h2, .receipt h3 {
+      text-align: center;
+      margin: 5px 0;
+    }
+    .line {
+      border-top: 1px dashed #000;
+      margin: 10px 0;
+    }
+    .receipt td {
+      font-size: 13px;
+      margin: 4px 0;
+      white-space: pre-wrap;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .buttons a, .buttons button {
+      text-decoration: none;
+      background: #007acc;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+    .buttons a:hover, .buttons button:hover {
+      background: #005a99;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 10px;
+      width: 60px;
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+    .info p {
+      font-size: 14px;
+      margin: 4px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .info p span{
+        text-align: left;
+    }
+    @media print {
+      .buttons {
+        display: none;
+      }
+      body {
+        background: white;
+      }
+    }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <center>
+            <h1>Aplikasi perbelanjaan</h1>
+            <form action="{{ url_for('member') }}" method="post">
+                <table>
+                    <tr>
+                        <td>Nama</td>
+                        <td>: <input type="text" name="AzkaNamaMember" required></td>
+                    </tr>
+                    <tr>
+                        <td>Member </td> 
+                        <td>:
+                           <select name="AzkaMember" id="" required>
+                              <option value="">-- Pilih Member --</option>
+                              <option value="Non Member">Non Member</option>
+                              <option value="Reguler">Reguler</option>
+                              <option value="Premium">Premium</option>
+                           </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Makanan</td>
+                        <td>: 
+                          <select name="AzkaBarang" id="" required>
+                            <option value="">-- Pilih Makananan --</option>
+                            <option value="Martabak">Martabak</option>
+                            <option value="Pizza">Pizza</option>
+                            <option value="Burger">Burger</option>
+                            <option value="Spagheti">Spagheti</option>
+                            <option value="Roti Bakar">Roti Bakar</option>
+                          </select><td>
+                    </tr>
+                    <tr>
+                        <td>Jumlah beli</td>
+                        <td>: <input type="number" name="AzkaJumlah" required></td>
+                    </tr>
+
+                </table>
+                <Button type="submit">Hitung</Button>
+                <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+              </form>
+        </center>
+    </div>
+    
+
+    {% if AzkaNamaMember %}
+    <div class="receipt" id="struk">
+        <div class="line"></div>
+            <h2>Hasil Pemesanan</h2>
+        <div class="line"></div>
+        <div class="info">
+            <table>
+                <tr>
+                    <td>Nama Pembeli</td>
+                    <td>: {{AzkaNamaMember}}</td>
+                </tr>
+                <tr>
+                    <td>Member</td>
+                    <td>: {{AzkaMember}}</td>
+                </tr>
+                <tr>
+                    <td>Nama Makanan</td>
+                    <td>: {{AzkaBarang}}</td>
+                </tr>
+                <tr>
+                    <td>Harga Makanan</td>
+                    <td>: {{AzkaHargaNormal}}</td>
+                </tr>
+                <tr>
+                    <td>Diskon Member</td>
+                    <td>: {{DiskonMember}}</td>
+                </tr>
+                <tr>
+                    <td>Jumlah Barang</td>
+                    <td>: {{AzkaJumlah}}</td>
+                </tr>
+                <tr>
+                    <td>Total Belanja</td>
+                    <td>: {{AzkaTotal}}</td>
+                </tr>
+                <tr>
+                    <td>Diskon</td>
+                    <td>: {{AzkaDiskon}}</td>
+                </tr>
+            </table>
+            <div class="line"></div>       
+            <p class="total">Total Bayar <span>Rp.{{AzkaHasil}}</span></p>
+            <div class="line"></div>
+            <div class="footer">
+                Terimakasi atas kunjungan anda! <br>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>

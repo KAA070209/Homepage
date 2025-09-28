@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{{ url_for('ujian') }}" method="post">
+        <table>
+            <tr>
+                <td>Nama</td>
+                <td>: <input type="text" name="AzkaNamaUjian" id=""></td>
+            </tr>
+            <tr>
+                <td>Nilai UTS</td>
+                <td>: <input type="number" name="AzkaUTS" id=""></td>
+            </tr>
+            <tr>
+                <td>Nilai UAS</td>
+                <td>: <input type="number" name="AzkaUAS" id=""></td>
+            </tr>
+            <tr>
+                <td>Nilai Tugas</td>
+                <td>: <input type="number" name="AzkaTugas" id=""></td>
+            </tr>
+            <tr>
+                <td>Nilai Praktek</td>
+                <td>: <input type="number" name="AzkaPraktek" id=""></td>
+            </tr>
+        </table>
+        <button type="submit">Hitung</button>
+    </form>
+    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+    {% if AzkaNamaUjian %}
+    <h3>Hasil Perhitungan</h3>
+    <table>
+    <tr><td>Nama</td><td>{{ AzkaNamaUjian }}</td></tr>
+    <tr><td>UTS</td><td>{{ AzkaUTS }}</td></tr>
+    <tr><td>UAS</td><td>{{ AzkaUAS }}</td></tr>
+    <tr><td>Tugas</td><td>{{ AzkaTugas }}</td></tr>
+    <tr><td>Praktek</td><td>{{ AzkaPraktek }}</td></tr>
+    <tr><td>Nilai Akhir</td><td>{{ AzkaAkhir }}</td></tr>
+    <tr class="table-success"><td>Predikat</td><td>{{ AzkaPredikat }}</td></tr>
+    </table>
+    {% endif %}
+
+</body>
+</html>

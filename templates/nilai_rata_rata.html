@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Input Nilai</h2>
+        
+        <form action="{{ url_for('nilai_rata_rata') }}" method="post">
+            <input type="number" placeholder="Jumlah Nilai" name="AzkaAngkaR" required>
+            <input type="submit" value="Submit">
+        </form>
+    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+
+        {% if AzkaAngkaR %}
+
+        <form action="{{ url_for('nilai_rata_rata') }}" method="post">
+            <input type="hidden" name="AzkaAngkaR" value="{{ AzkaAngkaR }}" required>
+            <table>
+                <tr>
+                    <td>Input Nilai</td>
+                </tr>
+                {% for AzkaJumlahR in range(1, AzkaAngkaR+1) %}
+                <tr>
+                    <td>
+                        <input type="number" placeholder="Nilai {{ AzkaJumlahR }}" 
+                               name="AzkaNilaiR{{ AzkaJumlahR }}" required>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Hitung">
+        </form>
+
+        {% if AzkaRataRataR %}
+        <table border="1" style="margin-top:10px;">
+            <tr>
+                <td>Nilai Rata-Rata</td>
+                <td>{{ AzkaRataRataR }}</td>
+            </tr>
+        </table>
+        {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

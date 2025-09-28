@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cetak Deret Angka</title>
+</head>
+<body>
+    <h2>Cetak Deret Angka</h2>
+    <form action="{{ url_for('dasar')}}" method="post">
+        Masukkan jumlah bilangan:
+        <input type="number" name="Azkajumlah" min="1" required>
+        <input type="submit" value="Cetak Deret">
+    </form>
+    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+
+    {% if Azkahasil %}
+        <h3>Hasil:</h3>
+        <p>
+            {% for angka in Azkahasil %}
+                {{ angka }}
+            {% endfor %}
+        </p>
+    {% endif %}
+</body>
+</html>

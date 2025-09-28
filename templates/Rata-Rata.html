@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitung Nilai Rata-Rata</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #2e7d32;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        form, .results-table {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        td {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        td:first-child {
+            font-weight: 600;
+            width: 30%;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 10px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+        .results-table {
+            border: 1px solid #4caf50;
+            background-color: #e8f5e9;
+        }
+        .results-table td {
+            border-bottom: 1px solid #c8e6c9;
+        }
+        .results-table tr:last-child td {
+            border-bottom: none;
+        }
+        .results-table .header-row td {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            font-weight: bold;
+            text-align: center;
+        }
+        .results-table .student-name-cell {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            form, .results-table {
+                padding: 20px;
+            }
+            td {
+                display: block;
+                width: 100%;
+                padding: 8px 0;
+            }
+            td:first-child {
+                width: 100%;
+                padding-bottom: 0;
+            }
+            input[type="text"],
+            input[type="number"] {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            button {
+                font-size: 1rem;
+                padding: 10px;
+            }
+            .results-table .header-row td {
+                font-size: 0.9rem;
+            }
+            .results-table .student-name-cell {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Hitung Nilai Rata-Rata</h1>
+    <form action="{{ url_for('Rata') }}" method="post">
+        <table>
+            <tr>
+                <td>Nama Siswa</td>
+                <td><input type="text" name="AzkaNamaSiswa" required></td>
+            </tr>
+            <tr>
+                <td>Mata Pelajaran 1</td>
+                <td><input type="text" name="AzkaMapel1" required></td>
+                <td>Nilai 1</td>
+                <td><input type="number" name="AzkaNilai1" min="0" max="100" required></td>
+            </tr>
+            <tr>
+                <td>Mata Pelajaran 2</td>
+                <td><input type="text" name="AzkaMapel2" required></td>
+                <td>Nilai 2</td>
+                <td><input type="number" name="AzkaNilai2" min="0" max="100" required></td>
+            </tr>
+            <tr>
+                <td>Mata Pelajaran 3</td>
+                <td><input type="text" name="AzkaMapel3" required></td>
+                <td>Nilai 3</td>
+                <td><input type="number" name="AzkaNilai3" min="0" max="100" required></td>
+            </tr>
+        </table>
+        <button type="submit">Hitung</button>
+    </form>
+    <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>     
+
+    {% if AzkaNamaSiswa %}
+        <div class="results-table">
+            <table>
+                <tr class="header-row">
+                    <td>Nama Siswa</td>
+                    <td>Mata Pelajaran</td>
+                    <td>Nilai</td>
+                </tr>
+                <tr>
+                    <td rowspan="3" class="student-name-cell">{{AzkaNamaSiswa}}</td>
+                    <td>{{AzkaMapel1}}</td>
+                    <td>{{AzkaNilai1}}</td>
+                </tr>
+                <tr>
+                    <td>{{AzkaMapel2}}</td>
+                    <td>{{AzkaNilai2}}</td>
+                </tr>
+                <tr>
+                    <td>{{AzkaMapel3}}</td>
+                    <td>{{AzkaNilai3}}</td>
+                </tr>
+                <tr>
+                    <td>Rata Rata</td>
+                    <td colspan="2" style="text-align: center;">{{AzkaRataRata}}</td>
+                </tr>
+                <tr>
+                    <td>Kategori</td>
+                    <td colspan="2" style="text-align: center;">{{AzkaKategori}}</td>
+                </tr>
+            </table>
+        </div>
+    {% endif %}
+</body>
+</html>

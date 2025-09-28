@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Pembelian</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(-45deg, #667eea, #764ba2, #ff6b6b, #fcb045);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    form {
+      position: relative;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 30px 40px;
+      border-radius: 20px;
+      width: 350px;
+      z-index: 1;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    /* Border RGB Animasi */
+    form::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 20px;
+      padding: 3px; /* ketebalan border */
+      background: linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
+      background-size: 400% 400%;
+      -webkit-mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude; 
+      animation: borderRGB 20s linear infinite;
+    }
+
+    @keyframes borderRGB {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+
+    table { width: 100%; }
+    td { padding: 10px 5px; font-size: 15px; color: #fff; font-weight: 500; }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(5px);
+    }
+    select{
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 14px;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(5px);
+    }
+    input::placeholder { color: rgba(255,255,255,0.7); }
+    select option { color: #333; }
+
+    input:focus, select:focus {
+      border: 2px solid #fff;
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 0 20px rgba(255,255,255,1);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #ff6b6b, #fcb045);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #fcb045, #ff6b6b);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(255,255,255,0.9);
+    }
+
+
+    .body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #1a73e8, #0d47a1);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+      width: 500px;
+      animation: fadeInUp 0.8s ease-in-out;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1a73e8;
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    td {
+      padding: 10px 5px;
+      border-bottom: 1px solid #eee;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      color: #555;
+      width: 40%;
+    }
+
+    td:last-child {
+      text-align: right;
+      font-weight: 500;
+      color: #333;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #1a73e8;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn {
+      display: block;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      background: #1a73e8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #0d47a1;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <form action="{{ url_for('kasir') }}" method="post">
+    <h2>Form Pembelian</h2>
+    <table>
+      <tr>
+        <td>Nama Pelanggan</td>
+        <td><input type="text" name="AzkaNamaKasir" placeholder="Masukkan Nama"></td>
+      </tr>
+      <tr>
+        <td>Nama Barang</td>
+        <td><input type="text" name="AzkaBarang" placeholder="Masukkan Barang"></td>
+      </tr>
+      <tr>
+        <td>Harga Per(unit)</td>
+        <td><input type="number" name="AzkaHarga" placeholder="Contoh: 50000"></td>
+      </tr>
+      <tr>
+        <td>Jumlah Barang</td>
+        <td><input type="number" name="AzkaJumlahBarang" placeholder="Jumlah"></td>
+      </tr>
+      <tr>
+        <td>Kategori</td>
+        <td>
+          <select name="AzkaKategori" required>
+            <option value="">-- Pilih Kategori --</option>
+            <option value="Makanan">Makanan</option>
+            <option value="Minuman">Minuman</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Metode Pembayaran</td>
+        <td>
+          <select name="AzkaPembayaran" required>
+            <option value="">-- Pilih Pembayaran --</option>
+            <option value="Cash">Cash</option>
+            <option value="Transfer">Transfer</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <input type="submit" name="" id="">   
+    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+  </form>
+ 
+  {% if AzkaNamaKasir %}
+  <div class=".body">
+   <div class="container">
+    <h2>Detail Transaksi</h2>
+    <table>
+      <tr>
+        <td>Nama Pelanggan</td>
+        <td>{{AzkaNamaKasir}}</td>
+      </tr>
+      <tr>
+        <td>Barang</td>
+        <td>{{AzkaBarang}}</td>
+      </tr>
+      <tr>
+        <td>Kategori</td>
+        <td>{{AzkaKategori}}</td>
+      </tr>
+      <tr>
+        <td>Harga Satuan</td>
+        <td>Rp {{AzkaHarga}}</td>
+      </tr>
+      <tr>
+        <td>Jumlah</td>
+        <td>{{AzkaJumlahBarang}}</td>
+      </tr>
+      <tr>
+        <td>Total Harga</td>
+        <td>Rp {{AzkaSub}}</td>
+      </tr>
+      <tr>
+        <td>Diskon</td>
+        <td>{{AzkaDiskon}}%</td>
+      </tr>
+      <tr>
+        <td>Metode Pembayaran</td>
+        <td>{{AzkaPembayaran}}</td>
+      </tr>
+      <tr>
+        <td>Total Bayar</td>
+        <td>Rp {{"{:,}".format(AzkaTotal)}}</td>
+      </tr>
+    </table>
+    <button class="btn" onclick="window.print()">Cetak Nota</button>
+  </div>
+  </div>
+  {% endif %}
+</body>
+</html>

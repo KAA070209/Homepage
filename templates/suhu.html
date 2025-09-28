@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saran Cuaca & Suhu</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #e0f2f7, #b2ebf2);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    h3 {
+      color: #00796b;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    form, .results {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      margin-bottom: 20px; /* Space between form and results on small screens */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      padding: 10px 0;
+      vertical-align: middle;
+    }
+    td:first-child {
+        font-weight: 600;
+        width: 30%;
+    }
+    input[type="number"],
+    select {
+      width: calc(100% - 10px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-left: 10px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #004d40;
+      transform: translateY(-2px);
+    }
+    button a {
+        color: white;
+        text-decoration: none;
+        display: block;
+    }
+
+    .results table {
+        margin-top: 10px;
+    }
+    .results td {
+        border-bottom: 1px solid #eee;
+    }
+    .results tr:last-child td {
+        border-bottom: none;
+    }
+    .results td:last-child {
+        font-weight: normal;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        body {
+            padding: 15px;
+        }
+        form, .results {
+            padding: 20px;
+        }
+        td {
+            display: block;
+            width: 100%;
+            padding: 8px 0;
+        }
+        td:first-child {
+            width: 100%;
+            padding-bottom: 0;
+        }
+        input[type="number"],
+        select {
+            width: 100%;
+            margin-left: 0;
+            margin-top: 5px;
+        }
+        button {
+            font-size: 1rem;
+            padding: 10px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form action="{{ url_for('suhu') }}" method="post">
+      <h3>Masukkan Data Cuaca</h3>
+      <table>
+        <tr>
+          <td>Cuaca</td>
+          <td>
+             <select name="AzkaCuaca" required>
+                <option value="Hujan">Hujan</option>
+                <option value="Cerah">Cerah</option>
+             </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Suhu (°C)</td>
+          <td><input type="number" name="AzkaSuhu" required></td>
+        </tr>
+      </table>
+      <button type="submit">Kirim</button>
+    </form>
+    <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>     
+
+    {% if AzkaCuaca %}
+    <div class="results">
+      <h3>Hasil Saran</h3>
+        <table>
+            <tr><td>Cuaca</td><td>: {{ AzkaCuaca }}</td></tr>
+            <tr><td>Suhu</td><td>: {{ AzkaSuhu }} °C</td></tr>
+            <tr><td>Saran</td><td>: {{ AzkaSaran }}</td></tr>
+        </table>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

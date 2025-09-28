@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Jumlah Nama</title>
+</head>
+<body>
+    <h1>Masukkan Jumlah Nama</h1>
+    <form action="{{ url_for('jumlah_nama')}}" method="POST">
+        <input type="text" name="AzkaNamaA" placeholder="Masukan Nama" required>
+        <input type="number" name="AzkajumlahA" min="1" required>
+        <button type="submit">Kirim</button>
+    </form>
+    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+
+    {% if HasilAzka %}
+        <h2>Daftar Nama:</h2>
+        <ul>
+            {% for nama in HasilAzka %}
+                <li>{{ nama }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

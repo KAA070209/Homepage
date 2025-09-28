@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profil</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #2563eb;
+      --background: #f1f5f9;
+      --text: #334155;
+      --white: #ffffff;
+      --shadow-light: rgba(0, 0, 0, 0.08);
+      --shadow-medium: rgba(0, 0, 0, 0.15);
+      --border-radius: 10px;
+      --transition: all 0.3s ease;
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, var(--primary), var(--primary-light));
+      color: var(--white);
+      padding: 30px 20px;
+      box-shadow: 2px 0 15px var(--shadow-medium);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar h3 {margin-bottom:25px;font-size:22px;text-align:center;}
+    .sidebar ul {list-style:none;flex:1;}
+    .sidebar ul li {margin:15px 0;}
+    .sidebar ul li a {
+      text-decoration:none;color:var(--white);padding:10px 15px;
+      border-radius:var(--border-radius);display:block;transition:var(--transition);
+    }
+    .sidebar ul li a:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateX(5px);
+    }
+
+    /* Main */
+    .main {flex:1;padding:40px;overflow-y:auto;}
+    .card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px var(--shadow-light);
+      max-width: 800px;
+      margin: auto;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    .card h2 {color: var(--primary);text-align:center;margin-bottom:20px;}
+    .card table {width:100%;border-collapse:collapse;font-size:16px;}
+    .card td {padding:10px;border-bottom:1px solid #eee;}
+    .card td:first-child {font-weight:bold;width:30%;color:#475569;}
+    .card tr:last-child td {border-bottom:none;}
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background: var(--primary);
+      color: var(--white);
+      padding: 12px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 22px;
+      border: none;
+      box-shadow: 0 2px 8px var(--shadow-light);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .hamburger:hover {background: var(--primary-light); transform: scale(1.05);}
+
+    /* Overlay */
+    .overlay {
+      display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.5);z-index:1000;
+      opacity:0;transition:opacity 0.3s ease;
+    }
+    .overlay.show {display:block;opacity:1;}
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(10px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      body {flex-direction: column;}
+      .hamburger {display:block;}
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0;
+        width: 260px;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.35s ease-in-out;
+        z-index: 1002;
+      }
+      .sidebar.open {transform: translateX(0);}
+      .main {padding:20px;margin-top:60px;}
+      .card {padding:20px;}
+
+      /* Table → responsif */
+      .card table, .card tr, .card td {display:block;width:100%;}
+      .card td:first-child {
+        font-weight:bold;
+        margin-top:10px;
+        color: var(--primary);
+      }
+      .card td:last-child {
+        padding-top:0;
+        margin-bottom:10px;
+      }
+    }
+
+    @media (max-width:480px) {
+      .main {padding:15px;}
+      .card {padding:15px;}
+      .card h2 {font-size:20px;}
+      .card td:first-child {font-size:14px;}
+      .card td:last-child {font-size:15px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Hamburger Button -->
+  <button class="hamburger" id="hamburger">☰</button>
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <h3>📘 Menu</h3>
+    <ul>
+      <li><a href="{{ url_for('profil') }}">📑 Profil</a></li>
+      <li><a href="{{ url_for('index') }}#Runtunan">📑 Runtunan</a></li>
+      <li><a href="{{ url_for('index') }}#If-Else">⚡ If Else</a></li>
+      <li><a href="{{ url_for('index') }}#If-Bersarang">🔀 If Bersarang</a></li>
+      <li><a href="{{ url_for('index') }}#For">🔀 For</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="card">
+      <h2>Profil Muhammad Azka Sa’adi Nabhan</h2>
+      <table>
+        <tr><td>Nama</td><td>: Muhammad Azka Sa’adi Nabhan</td></tr>
+        <tr><td>NISN</td><td>: 1234567890</td></tr>
+        <tr><td>Kelas</td><td>: XI RPL B</td></tr>
+        <tr><td>Sekolah</td><td>: SMK Negeri 2 Cimahi</td></tr>
+        <tr><td>Tempat, Tanggal Lahir</td><td>: Tasikmalaya, 07 Februari 2009</td></tr>
+        <tr><td>Jenis Kelamin</td><td>: Laki-laki</td></tr>
+        <tr><td>Agama</td><td>: Islam</td></tr>
+        <tr><td>Alamat</td><td>: Jl. Pangauban, Perumahan Pangauban Silih Asih Block M 58, Bandung Barat</td></tr>
+        <tr><td>Hobi</td><td>: Ngoding, Main Game, Desain</td></tr>
+        <tr><td>No. HP</td><td>: 0812-8555-4702</td></tr>
+        <tr><td>Email</td><td>: m.azkanabhan07@gmail.com</td></tr>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar   = document.getElementById('sidebar');
+    const overlay   = document.getElementById('overlay');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('show');
+      hamburger.textContent = sidebar.classList.contains('open') ? '✕' : '☰';
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      hamburger.textContent = '☰';
+    });
+  </script>
+</body>
+</html>

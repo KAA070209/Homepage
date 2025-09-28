@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hitung Gaji Karyawan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(270deg, #74ebd5, #ACB6E5);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      min-height: 100vh;
+      color: #333;
+    }
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .card {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 600px;
+      margin-bottom: 30px;
+      box-sizing: border-box;
+    }
+    .card-header {
+        background-color: #3498db;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px 12px 0 0;
+        margin: -30px -30px 20px -30px; /* Adjust to fit card padding */
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .card-header h5 {
+        margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .form-col {
+        flex: 1 1 calc(50% - 10px); /* Two columns on larger screens */
+        min-width: 280px; /* Minimum width for a column before wrapping */
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .button-group button {
+        padding: 12px 25px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .button-group button:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+    .button-group button a {
+        color: white;
+        text-decoration: none;
+        display: block;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .results-table th, .results-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    .results-table th {
+      background-color: #f8f8f8;
+      font-weight: 600;
+      color: #555;
+    }
+    .results-table tr:last-child td {
+      border-bottom: none;
+    }
+    .results-table .table-success th, .results-table .table-success td {
+      background-color: #d4edda;
+      color: #155724;
+      font-weight: bold;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .form-col {
+            flex: 1 1 100%; /* Single column on smaller screens */
+            min-width: unset;
+        }
+        .button-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .button-group button {
+            margin-top: 10px;
+        }
+        .card {
+            padding: 20px;
+        }
+        .card-header {
+            margin: -20px -20px 20px -20px;
+        }
+    }
+    @media (max-width: 480px) {
+        body {
+            padding: 10px;
+        }
+        h2 {
+            font-size: 1.5rem;
+        }
+        .card {
+            padding: 15px;
+        }
+        .card-header {
+            font-size: 1rem;
+            margin: -15px -15px 15px -15px;
+        }
+        input, select, button {
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Hitung Gaji Karyawan</h2>
+  
+  <div class="card">
+    <form action="{{ url_for('gaji') }}" method="post">
+      <div class="form-row">
+          <div class="form-col">
+            <div class="form-group">
+                <label>Nama</label>
+                <input type="text" name="AzkaNama" required>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+                <label>Status</label>
+                <select name="AzkaStatus" required>
+                <option value="">-- Pilih Status --</option>
+                <option value="Tetap">Tetap</option>
+                <option value="Kontrak">Kontrak</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+                <label>Gaji Pokok</label>
+                <input type="number" name="AzkaGaji" required>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+                <label>Lembur</label>
+                <select name="AzkaLembur" required>
+                <option value="">-- Pilih Lembur --</option>
+                <option value="Iya">Iya</option>
+                <option value="Tidak">Tidak</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="form-group">
+                <label>Jam Lembur</label>
+                <input type="number" name="AzkaJam" required>
+            </div>
+          </div>
+      </div>
+      <div class="button-group">
+        <button type="submit">Hitung Gaji</button>
+        <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>     
+      </div>
+    </form>
+  </div>
+
+  {% if AzkaNama %}
+  <div class="card">
+    <div class="card-header">
+      <h5>Hasil Perhitungan Gaji</h5>
+    </div>
+    <div class="card-body">
+      <table class="results-table">
+        <tr><th>Nama</th><td>{{AzkaNama}}</td></tr>
+        <tr><th>Status</th><td>{{AzkaStatus}}</td></tr>
+        <tr><th>Gaji Pokok</th><td>Rp. {{ "{:,.0f}".format(AzkaGaji) }}</td></tr>
+        <tr><th>Bonus</th><td>Rp. {{ "{:,.0f}".format(AzkaBonus) }}</td></tr>
+        <tr><th>Jam Lembur</th><td>{{AzkaJam}} Jam</td></tr>
+        <tr><th>Tambahan Lembur</th><td>Rp. {{ "{:,.0f}".format(AzkaTambahan) }}</td></tr>
+        <tr><th>Gaji Kotor</th><td>Rp. {{ "{:,.0f}".format(AzkaGajiKotor) }}</td></tr>
+        <tr><th>Pajak (2%)</th><td>Rp. {{ "{:,.0f}".format(AzkaPajak) }}</td></tr>
+        <tr class="table-success"><th>Gaji Bersih</th><td><strong>Rp. {{ "{:,.0f}".format(AzkaGajiBersih) }}</strong></td></tr>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</body>
+</html>

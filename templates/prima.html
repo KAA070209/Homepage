@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{{url_for('prima')}}" method="post">
+        <table>
+            <tr>
+                <td>Masukan Angka</td>
+                <td>: <input type="number" name="AzkaAngkaP"></td>
+            </tr>
+        </table>
+        <button type="submit">Kirim</button>
+    </form>
+    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+    {% if AzkaKetP %}
+    <table>
+        <tr>
+            <td>
+                <ul>
+                {% for AzkaKetP in AzkaKetP %}
+                <li>{{ AzkaKetP }}</li>
+                {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table> 
+    {% endif %}
+</body>
+</html>

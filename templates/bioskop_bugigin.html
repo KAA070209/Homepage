@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelian Tiket Bioskop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+        }
+        form table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        form td {
+            padding: 10px 0;
+            vertical-align: middle;
+        }
+        form td:first-child {
+            width: 40%;
+            font-weight: 600;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 10px);
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-left: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .receipt {
+            background: white;
+            width: 100%;
+            max-width: 350px;
+            padding: 20px;
+            border: 1px dashed #000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+        .receipt h2 {
+            text-align: center;
+            margin: 5px 0;
+            color: #2c3e50;
+        }
+        .line {
+            border-top: 1px dashed #000;
+            margin: 10px 0;
+        }
+        .receipt table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .receipt td {
+            font-size: 0.9rem;
+            padding: 4px 0;
+        }
+        .receipt td:first-child {
+            font-weight: 600;
+        }
+        .receipt td:last-child {
+            text-align: right;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: #444;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            form {
+                padding: 20px;
+            }
+            form td {
+                display: block;
+                width: 100%;
+                padding: 8px 0;
+            }
+            form td:first-child {
+                width: 100%;
+                padding-bottom: 0;
+            }
+            input[type="text"],
+            input[type="number"],
+            select {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 5px;
+            }
+            button {
+                font-size: 1rem;
+                padding: 10px;
+            }
+            .receipt {
+                margin-top: 20px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Pembelian Tiket Bioskop</h1>
+    <div class="container">
+        <form action="{{ url_for('bioskop') }}" method="post">
+            <table>
+                <tr>
+                    <td>Nama Pelanggan</td>
+                    <td><input type="text" name="AzkaNamaBioskop" required></td>
+                </tr>
+                <tr>
+                    <td>Film</td>
+                    <td>
+                        <select name="AzkaFilm" required>
+                            <option value="">-- Pilih Film --</option>
+                            <option value="GalaksiBiru">Galaksi Biru - Rp.40000</option>
+                            <option value="MisteriSenja">Misteri Senja - Rp.45000</option>
+                            <option value="AksiTanpaBatas">Aksi Tanpa Batas - Rp.50000</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jadwal</td>
+                    <td>
+                        <select name="AzkaJadwal" required>
+                            <option value="10:00">10:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="19:00">19:00</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jumlah Tiket</td>
+                    <td><input type="number" name="AzkaJumlah" min="1" required></td>
+                </tr>
+                <tr>
+                    <td>Metode Pembayaran</td>
+                    <td>
+                        <select name="AzkaPembayaran" required>
+                            <option value="">-- Pilih Pembayaran --</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Transfer">Transfer</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Hitung</button>
+            <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>
+        </form>
+
+        {% if AzkaNamaBioskop %}
+        <div class="receipt" id="struk">
+            <div class="line"></div>
+            <h2>Hasil Pemesanan</h2>
+            <h2>Tiket Bioskop</h2>
+            <div class="line"></div>
+            <table>
+                <tr>
+                    <td>Nama Pelanggan</td>
+                    <td>: {{AzkaNamaBioskop}}</td>
+                </tr>
+                <tr>
+                    <td>Film</td>
+                    <td>: {{AzkaFilm}}</td>
+                </tr>
+                <tr>
+                    <td>Jadwal</td>
+                    <td>: {{AzkaJadwal}}</td>
+                </tr>
+                <tr>
+                    <td>Harga Satuan</td>
+                    <td>: Rp.{{ "{:,.0f}".format(AzkaHarga) }}</td>
+                </tr>
+                <tr>
+                    <td>Jumlah Tiket</td>
+                    <td>: {{AzkaJumlah}}</td>
+                </tr>
+                <tr>
+                    <td>Subtotal</td>
+                    <td>: Rp.{{ "{:,.0f}".format(AzkaSub) }}</td>
+                </tr>
+                <tr>
+                    <td>Diskon</td>
+                    <td>: Rp.{{ "{:,.0f}".format(AzkaDiskon) }}</td>
+                </tr>
+                <tr>
+                    <td>Biaya Transfer</td>
+                    <td>: Rp.{{ "{:,.0f}".format(AzkaAdmin) }}</td>
+                </tr>
+            </table>
+            <div class="line"></div>       
+            <p class="total">Total Bayar <span>Rp.{{ "{:,.0f}".format(AzkaTotal) }}</span></p>
+            <div class="line"></div>
+            <div class="footer">
+                Terima kasih atas kunjungan Anda! <br>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

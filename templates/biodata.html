@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punya Azka</title>
+    <style>
+         * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom right, #dce3ec, #f4f7fa);
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      flex-wrap: wrap;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    form, .results {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 850px;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    form:hover, .results:hover {
+      transform: scale(1.01);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    input[type="text"], input[type="number"], input[type="date"] {
+      width: 50%;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 30%;
+      padding: 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: scale(1.03);
+    }
+    
+    .body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom right, #dce3ec, #f4f7fa);
+      animation: fadeIn 1s ease-in;
+    }
+        .table, .td, .th {
+            border: 1px solid;
+            padding: 6px;
+        }
+
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .table {
+            width: 40%;
+            border-collapse: collapse;
+
+        }
+        .results {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 850px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .results:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .results-grid div {
+            font-size: 15px;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 960px) {
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <form action="{{ url_for('biodata') }}" method="post">
+            <center
+            ><h1>BIODATA SISWA KELAS XI RPL</h1>
+            
+            <table>
+                <tr>
+                    <td>NIS</td>
+                    <td>: <input type="text" name="AzkaNIS" ></td>
+                </tr>
+                <tr>
+                    <td>Nama Lengkap</td>
+                    <td>: <input type="text" name="AzkaLengkap"></td>
+                </tr>
+                <tr>
+                    <td>Asal SMP</td>
+                    <td>: <input type="text" name="AzkaAsal"></td>
+                </tr>
+                <tr>
+                    <td>Lama Study</td>
+                    <td>: <input type="number" name="AzkaLama" style="width: 150px;">Tahun <input type="number" name="AzkaLamaBulan" style="width: 150px;">Bulan</td>
+                </tr>
+                <tr>
+                    <td>Jurusan </td>
+                    <td>: 
+                        <select name="AzkaJurusan" id="">
+                            <option value="Mekatronika">Mekatronika</option>
+                            <option value="DKV">DKV</option>
+                            <option value="PPLG">PPLG</option>
+                            <option value="ANIMASI">ANIMASI</option>
+                            <option value="KIMIA">KIMIA</option>
+                            <option value="MESIN">MESIN</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tempat dan Tanggal Lahir </td>
+                    <td>: <input type="text" name="AzkaTempat" style="width: 150px;"> <input type="date" name="AzkaTanggal" style="width: 150px;"></td>
+                </tr>
+                <tr>
+                    <td>Jenis Kelamin</td>
+                    <td>: <input name="AzkaJenis" type="radio" id="" value="Laki-Laki">Laki-Laki <input type="radio" name="AzkaJenis" id="" value="Perempuan">Perempuan</td>
+                </tr>
+                <tr>
+                    <td>Alamat :</td>
+                    <td><textarea name="AlamatAzka" id=""></textarea></td>
+                </tr>
+                <tr>
+                    <td>Hobi</td>
+                    <td>: <input type="checkbox" name="AzkaHobi" value="Ngoding">Ngoding <input type="checkbox" name="AzkaHobi" id="" value="Olahraga">Olahraga <input type="checkbox" value="MainGame">Main Game</td>
+                </tr>
+            </table>
+            </center>
+            <center>
+                <button type="submit" >Kembali</button>
+                <button type="submit">Simpan</button>
+                <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+            </center>
+        </form>
+    </div>
+    
+
+    {% if AzkaNIS %}
+     <div class="body">
+        <center><h1>BIODATA SISWA KELAS XI RPL</h1></center>
+        <div id="container">
+            <div class="results">
+                <center>
+                    <div class="table">
+                        <div class="tr">
+                            <div class="td">
+                                <table>
+                                    <th>Judul</th>
+                                    <th>Hasil input</th>
+                                    <tr>
+                                        <td>NIS</td>
+                                        <td>{{AzkaNIS}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lengkap</td>
+                                        <td>{{AzkaLengkap}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Asal SMP</td>
+                                        <td>{{AzkaAsal}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Lama Study</td>
+                                        <td>{{AzkaLama}} Tahun , {{AzkaLamaBulan}} Bulan</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jurusan</td>
+                                        <td>{{AzkaJurusan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tempat Dan Tanggal Lahir</td>
+                                        <td>{{AzkaTempat}} , {{AzkaTanggal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td>{{AlamatAzka}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hobi</td>
+                                        <td>{{AzkaHobi}}</td>
+                                    </tr>
+                                </table> 
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
