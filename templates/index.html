@@ -38,7 +38,16 @@
     @keyframes fadeInUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
     @keyframes fadeInRight { from{opacity:0; transform:translateX(-20px);} to{opacity:1; transform:translateX(0);} }
     @keyframes fadeInScale { from{opacity:0; transform:scale(0.95);} to{opacity:1; transform:scale(1);} }
-    @keyframes slideIn { from{opacity:0; transform:translateX(-30px);} to{opacity:1; transform:translateX(0);} }
+    @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
     /* ================== HAMBURGER ================== */
     .hamburger {
@@ -175,18 +184,19 @@
       color: var(--primary-light);
     }
 
-    /* ================== DESKTOP (≥769px) ================== */
-    @media (min-width: 769px) {
-      body { display: flex; }
-      .sidebar {
-        width: 240px;
-        position: sticky;
-        top: 0;
-        transform: translateX(0);
-        animation: slideIn 1s ease forwards 0.2s;
-      }
-      .main { margin-left: 0; }
+/* ================== DESKTOP (≥769px) ================== */
+  @media (min-width: 769px) {
+    body { display: flex; }
+    .sidebar {
+      width: 240px;
+      position: sticky;
+      top: 0;
+      transform: translateX(-15px);
+      opacity: 0;
+      animation: slideIn 0.8s cubic-bezier(0.25, 1, 0.3, 1) forwards;
     }
+    .main { margin-left: 0; }
+  }
 
     /* ================== MOBILE (≤768px) ================== */
     @media (max-width: 768px) {
