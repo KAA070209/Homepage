@@ -1,12 +1,19 @@
-from app import app as application
-from dotenv import load_dotenv
+# wsgi.py
 import os
+from flask import Flask
+from dotenv import dotenv_values # Import dotenv_values
 
-# Load environment variables dari file .env
-load_dotenv(".env")
+application = Flask(__name__)
 
-# Set Flask config dari env
-application.secret_key = os.getenv("SECRET_KEY")
-application.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
-application.config["PREFERRED_URL_SCHEME"] = os.getenv("PREFERRED_URL_SCHEME", "https")
-application.config["SESSION_COOKIE_SECURE"] = os.getenv("SESSION_COOKIE_SECURE", "True") == "True"
+# Load configuration from .env file
+# The 'load' argument is a callable that parses the file content.
+# dotenv_values() reads key-value pairs from a .env file.
+application.config.from_file(".env", load=dotenv_values)
+
+# Your other application setup (routes, etc.)
+@application.route('/')
+def hello_world():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    application.run()
