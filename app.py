@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", "default123")
+app.secret_key = os.getenv("SECRET_KEY", "azka123")
 
 @app.route("/")
 def index():
