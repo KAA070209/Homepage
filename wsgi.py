@@ -1,8 +1,6 @@
-import os
+from app import app as application
 from dotenv import load_dotenv
-from app import app
+import os
 
-# load .env
-load_dotenv()
-
-application = app
+# load .env file
+load_dotenv(os.path.join(os.path.dirname(__file__), ".env"))
