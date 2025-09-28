@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,7 +13,7 @@
       --white: #ffffff;
       --shadow-light: rgba(0, 0, 0, 0.08);
       --shadow-medium: rgba(0, 0, 0, 0.15);
-      --border-radius: 10px;
+      --border-radius: 12px;
       --transition: all 0.3s ease;
     }
 
@@ -40,34 +40,67 @@
       display: flex;
       flex-direction: column;
     }
-    .sidebar h3 {margin-bottom:25px;font-size:22px;text-align:center;}
-    .sidebar ul {list-style:none;flex:1;}
-    .sidebar ul li {margin:15px 0;}
-    .sidebar ul li a {
-      text-decoration:none;color:var(--white);padding:10px 15px;
-      border-radius:var(--border-radius);display:block;transition:var(--transition);
+    .sidebar h3 {
+      margin-bottom: 25px;
+      font-size: 22px;
+      text-align: center;
     }
-    .sidebar ul li a:hover {
+    .sidebar ul {
+      list-style: none;
+      flex: 1;
+    }
+    .sidebar ul li {margin: 12px 0;}
+    .sidebar ul li a {
+      text-decoration: none;
+      color: var(--white);
+      padding: 10px 15px;
+      border-radius: var(--border-radius);
+      display: block;
+      transition: var(--transition);
+    }
+    .sidebar ul li a:hover,
+    .sidebar ul li a.active {
       background: rgba(255,255,255,0.25);
-      transform: translateX(5px);
+      transform: translateX(6px);
     }
 
     /* Main */
-    .main {flex:1;padding:40px;overflow-y:auto;}
+    .main {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
     .card {
       background: var(--white);
       padding: 30px;
-      border-radius: 14px;
+      border-radius: 16px;
       box-shadow: 0 4px 12px var(--shadow-light);
       max-width: 800px;
       margin: auto;
       animation: fadeIn 0.8s ease-in-out;
     }
-    .card h2 {color: var(--primary);text-align:center;margin-bottom:20px;}
-    .card table {width:100%;border-collapse:collapse;font-size:16px;}
-    .card td {padding:10px;border-bottom:1px solid #eee;}
-    .card td:first-child {font-weight:bold;width:30%;color:#475569;}
-    .card tr:last-child td {border-bottom:none;}
+    .card h2 {
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+    .card td {
+      padding: 12px 8px;
+      border-bottom: 1px solid #eee;
+    }
+    .card td:first-child {
+      font-weight: bold;
+      width: 32%;
+      color: #475569;
+    }
+    .card tr:last-child td {
+      border-bottom: none;
+    }
 
     /* Hamburger */
     .hamburger {
@@ -86,15 +119,26 @@
       box-shadow: 0 2px 8px var(--shadow-light);
       transition: background 0.3s ease, transform 0.2s ease;
     }
-    .hamburger:hover {background: var(--primary-light); transform: scale(1.05);}
+    .hamburger:hover {
+      background: var(--primary-light);
+      transform: scale(1.05);
+    }
 
     /* Overlay */
     .overlay {
-      display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-      background:rgba(0,0,0,0.5);z-index:1000;
-      opacity:0;transition:opacity 0.3s ease;
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-    .overlay.show {display:block;opacity:1;}
+    .overlay.show {
+      display: block;
+      opacity: 1;
+    }
 
     /* Animations */
     @keyframes fadeIn {
@@ -105,7 +149,7 @@
     /* Mobile */
     @media (max-width: 768px) {
       body {flex-direction: column;}
-      .hamburger {display:block;}
+      .hamburger {display: block;}
       .sidebar {
         position: fixed;
         top: 0; left: 0;
@@ -116,28 +160,31 @@
         z-index: 1002;
       }
       .sidebar.open {transform: translateX(0);}
-      .main {padding:20px;margin-top:60px;}
-      .card {padding:20px;}
+      .main {padding: 20px; margin-top: 60px;}
+      .card {padding: 20px;}
 
       /* Table → responsif */
-      .card table, .card tr, .card td {display:block;width:100%;}
+      .card table, .card tr, .card td {
+        display: block;
+        width: 100%;
+      }
       .card td:first-child {
-        font-weight:bold;
-        margin-top:10px;
+        font-weight: bold;
+        margin-top: 10px;
         color: var(--primary);
       }
       .card td:last-child {
-        padding-top:0;
-        margin-bottom:10px;
+        padding-top: 0;
+        margin-bottom: 10px;
       }
     }
 
     @media (max-width:480px) {
-      .main {padding:15px;}
-      .card {padding:15px;}
-      .card h2 {font-size:20px;}
-      .card td:first-child {font-size:14px;}
-      .card td:last-child {font-size:15px;}
+      .main {padding: 15px;}
+      .card {padding: 15px;}
+      .card h2 {font-size: 20px;}
+      .card td:first-child {font-size: 14px;}
+      .card td:last-child {font-size: 15px;}
     }
   </style>
 </head>
@@ -150,7 +197,7 @@
   <nav class="sidebar" id="sidebar">
     <h3>📘 Menu</h3>
     <ul>
-      <li><a href="{{ url_for('profil') }}">📑 Profil</a></li>
+      <li><a href="{{ url_for('profil') }}" class="active">📑 Profil</a></li>
       <li><a href="{{ url_for('index') }}#Runtunan">📑 Runtunan</a></li>
       <li><a href="{{ url_for('index') }}#If-Else">⚡ If Else</a></li>
       <li><a href="{{ url_for('index') }}#If-Bersarang">🔀 If Bersarang</a></li>

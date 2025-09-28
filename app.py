@@ -1,5 +1,16 @@
+import os
 from flask import Flask, render_template, request, url_for
+from dotenv import load_dotenv
 
+# load .env
+load_dotenv()
+
+app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY", "default123")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
 app = Flask(__name__, template_folder='templates')
 
 
