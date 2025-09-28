@@ -5,21 +5,17 @@ from dotenv import load_dotenv
 # load .env
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.secret_key = os.getenv("SECRET_KEY", "azka123")
 
 @app.route("/")
 def index():
     return render_template("index.html")
-app = Flask(__name__, template_folder='templates')
 
-
-@app.route("/")
-def index():
-    return render_template("index.html")
 @app.route("/profil")
 def profil():
     return render_template("profil.html")
+
 
 @app.route("/suhu", methods=["GET", "POST"])
 def suhu():

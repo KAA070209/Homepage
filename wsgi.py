@@ -1,11 +1,11 @@
-# wsgi.py
 import os
+from app import app as application  
 from flask import Flask, render_template
 from dotenv import dotenv_values
 
 application = Flask(__name__)
 
-# Load configuration from .env
+# Load configuration dari .env
 application.config.from_file(".env", load=dotenv_values)
 
 @application.route('/')
