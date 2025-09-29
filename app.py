@@ -4,7 +4,8 @@ from dotenv import dotenv_values
 application = Flask(__name__)
 
 # Load konfigurasi dari .env
-application.config.from_file(".env", load=dotenv_values)
+application.config.update(dotenv_values(".env"))
+
 
 @application.route('/')
 def index():
