@@ -1,198 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Seleksi Beasiswa</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        h1 {
-            color: #00796b;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        form, .results-table {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-            width: 100%;
-            max-width: 500px;
-            box-sizing: border-box;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-        td {
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-        td:first-child {
-            font-weight: 600;
-            width: 40%;
-        }
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: calc(100% - 10px);
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            margin-left: 10px;
-        }
-        button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #00796b;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #004d40;
-            transform: translateY(-2px);
-        }
-        button a {
-            color: white;
-            text-decoration: none;
-            display: block;
-        }
-        .results-table {
-            border: 1px solid #00796b;
-            background-color: #e0f2f7;
-        }
-        .results-table td {
-            border-bottom: 1px solid #b2ebf2;
-        }
-        .results-table tr:last-child td {
-            border-bottom: none;
-        }
-        .results-table h1 {
-            color: #00796b;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Seleksi Beasiswa</title>
+  <style>
+    * { box-sizing: border-box; }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-            form, .results-table {
-                padding: 20px;
-            }
-            td {
-                display: block;
-                width: 100%;
-                padding: 8px 0;
-            }
-            td:first-child {
-                width: 100%;
-                padding-bottom: 0;
-            }
-            input[type="text"],
-            input[type="number"],
-            select {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 5px;
-            }
-            button {
-                font-size: 1rem;
-                padding: 10px;
-            }
-        }
-    </style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom right, #e0f7fa, #b2ebf2);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: #00796b;
+      margin-bottom: 25px;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-section, .results-section {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    .form-section:hover, .results-section:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .form-table td {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    .form-table td:first-child {
+      font-weight: 600;
+      width: 40%;
+      color: #00796b;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: calc(100% - 10px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      margin-left: 10px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: #00796b;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 121, 107, 0.3);
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #004d40;
+      transform: translateY(-2px);
+    }
+
+    .btn-home { background-color: #6c757d; }
+    .btn-home:hover { background-color: #5a6268; }
+    .btn-reset { background-color: #ffc107; color: #333; }
+    .btn-reset:hover { background-color: #e0a800; }
+
+    button a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Results Section */
+    .results-section {
+      border: 1px solid #00796b;
+      background-color: #e0f2f7;
+    }
+
+    .results-title {
+      color: #00796b;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .results-table td {
+      padding: 12px 0;
+      border-bottom: 1px solid #b2ebf2;
+    }
+
+    .results-table tr:last-child td { border-bottom: none; }
+    .results-table td:first-child { font-weight: bold; color: #00796b; }
+
+    /* Default: desktop tampil tabel, mobile disembunyikan */
+    .results-mobile { display: none; }
+    .results-table { display: table; }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      body { padding: 15px; }
+      h1 { font-size: 1.5rem; margin-bottom: 20px; }
+      .container { gap: 15px; padding: 0 5px; }
+      .form-section, .results-section { padding: 20px; border-radius: 10px; }
+      .form-table td { display: block; width: 100%; padding: 10px 0; }
+      .form-table td:first-child { width: 100%; padding-bottom: 5px; padding-top: 10px; font-size: 16px; }
+      input[type="text"], input[type="number"], select {
+        width: 100%; margin-left: 0; margin-top: 5px;
+        font-size: 16px; padding: 12px;
+      }
+      .button-group { gap: 12px; }
+      button { font-size: 1rem; padding: 14px; border-radius: 8px; }
+
+      /* Hasil: hide tabel, tampilkan kartu */
+      .results-table { display: none; }
+      .results-mobile { display: block; margin-top: 15px; }
+
+      .results-item {
+        background: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border-left: 4px solid #00796b;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+      .results-item:hover { transform: translateY(-1px); }
+      .results-item strong {
+        display: block;
+        color: #00796b;
+        font-size: 1rem;
+        margin-bottom: 4px;
+      }
+      .results-item .value {
+        font-weight: bold;
+        color: #004d40;
+        font-size: 1.1rem;
+      }
+      .results-item.total {
+        background-color: #e0f2f7;
+        border-left-color: #004d40;
+        font-size: 1.1rem;
+      }
+      .results-item.hasil {
+        background-color: #c8e6c9;
+        border-left-color: #2e7d32;
+        text-align: center;
+        color: #2e7d32;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 10px; }
+      h1 { font-size: 1.3rem; }
+      .form-section, .results-section { padding: 15px; }
+      .form-table td { padding: 8px 0; }
+      input[type="text"], input[type="number"], select { padding: 10px; }
+      button { padding: 12px; font-size: 16px; }
+      .results-item { padding: 12px; margin-bottom: 8px; }
+      .results-title { font-size: 1.3rem; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Form Seleksi Beasiswa</h1>
-    <form action="{{ url_for('beasiswa') }}" method="post">
-        <table>
-            <tr>
-                <td>Nama Siswa</td>
-                <td><input type="text" name="AzkaNamaSiswaBeasiswa" required></td>
-            </tr>
-            <tr>
-                <td>Nilai Rata Rata Raport</td>
-                <td><input type="number" name="AzkaNilai" required></td>
-            </tr>
-            <tr>
-                <td>Penghasilan Orang tua</td>
-                <td><input type="number" name="AzkaPenghasilan" required></td>
-            </tr>
-            <tr>
-                <td>Jumlah Saudara</td>
-                <td><input type="number" name="AzkaJumlah" required></td>
-            </tr>
-            <tr>
-                <td>Status tempat tinggal</td>
-                <td>
-                    <select name="AzkaStatus" required>
-                        <option value="MilikSendiri">Milik Sendiri</option>
-                        <option value="Sewa">Sewa</option>
-                        <option value="IkutSaudara">Ikut Saudara</option>
-                    </select>
-                </td>
-            </tr>
+  <h1>Form Seleksi Beasiswa</h1>
+  
+  <div class="container">
+    <div class="form-section">
+      <form action="{{ url_for('beasiswa') }}" method="post">
+        <table class="form-table">
+          <tr>
+            <td>Nama Siswa</td>
+            <td><input type="text" name="AzkaNamaSiswaBeasiswa" placeholder="Masukkan nama lengkap" required></td>
+          </tr>
+          <tr>
+            <td>Nilai Rata-Rata Raport</td>
+            <td><input type="number" name="AzkaNilai" min="0" max="100" step="0.01" placeholder="0.00 - 100.00" required></td>
+          </tr>
+          <tr>
+            <td>Penghasilan Orang Tua (Rp)</td>
+            <td><input type="number" name="AzkaPenghasilan" min="0" placeholder="0" required></td>
+          </tr>
+          <tr>
+            <td>Jumlah Saudara</td>
+            <td><input type="number" name="AzkaJumlah" min="0" placeholder="0" required></td>
+          </tr>
+          <tr>
+            <td>Status Tempat Tinggal</td>
+            <td>
+              <select name="AzkaStatus" required>
+                <option value="">Pilih Status</option>
+                <option value="MilikSendiri">Milik Sendiri</option>
+                <option value="Sewa">Sewa</option>
+                <option value="IkutSaudara">Ikut Saudara</option>
+              </select>
+            </td>
+          </tr>
         </table>
-        <button type="submit">Submit</button>
-    </form>
-    <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>     
+        <div class="button-group">
+          <button type="submit">Submit Seleksi</button>
+          <button type="reset" class="btn-reset">Reset Form</button>
+        </div>
+      </form>
+    </div>
+
+    <button class="btn-home"><a href="{{ url_for('index') }}">Kembali ke Homepage</a></button>     
 
     {% if AzkaNamaSiswaBeasiswa %}
-    <div class="results-table">
-        <h1>Hasil Seleksi Beasiswa</h1>
-        <table>
-            <tr>
-                <td>Nama Siswa</td>
-                <td>{{AzkaNamaSiswaBeasiswa}}</td>
-            </tr>
-            <tr>
-                <td>Rata Rata Nilai</td>
-                <td>{{AzkaNilai}}</td>
-            </tr>
-            <tr>
-                <td>Penghasilan Orang Tua</td>
-                <td>{{AzkaPenghasilan}}</td>
-            </tr>
-            <tr>
-                <td>Jumlah Saudara</td>
-                <td>{{AzkaJumlah}}</td>
-            </tr>
-            <tr>
-                <td>Status Tempat Tinggal</td>
-                <td>{{AzkaStatus}}</td>
-            </tr>
-            <tr>
-                <td>Total Poin</td>
-                <td>{{AzkaHasilAkhir}}</td>
-            </tr>
-            <tr>
-                <td>Hasil</td>
-                <td>{{AzkaHasil}}</td>
-            </tr>
-        </table>
+    <div class="results-section">
+      <h1 class="results-title">Hasil Seleksi Beasiswa</h1>
+
+      <!-- Desktop Table -->
+      <table class="results-table">
+        <tr><td>Nama Siswa</td><td>{{ AzkaNamaSiswaBeasiswa }}</td></tr>
+        <tr><td>Rata-Rata Nilai</td><td>{{ AzkaNilai|default(0)|round(2) }}</td></tr>
+        <tr><td>Penghasilan Orang Tua (Rp)</td><td>{{ AzkaPenghasilan|default(0)|int }}</td></tr>
+        <tr><td>Jumlah Saudara</td><td>{{ AzkaJumlah|default(0)|int }}</td></tr>
+        <tr><td>Status Tempat Tinggal</td><td>{{ AzkaStatus|default('Tidak Diketahui') }}</td></tr>
+        <tr class="total"><td>Total Poin</td><td>{{ AzkaHasilAkhir|default(0)|round(2) }}</td></tr>
+        <tr class="hasil"><td>Hasil Seleksi</td><td>{{ AzkaHasil|default('Tidak Diketahui') }}</td></tr>
+      </table>
+
+      <!-- Mobile Results -->
+      <div class="results-mobile">
+        <div class="results-item"><strong>Nama Siswa</strong><span class="value">{{ AzkaNamaSiswaBeasiswa }}</span></div>
+        <div class="results-item"><strong>Rata-Rata Nilai</strong><span class="value">{{ AzkaNilai|default(0)|round(2) }}</span></div>
+        <div class="results-item"><strong>Penghasilan Orang Tua (Rp)</strong><span class="value">{{ AzkaPenghasilan|default(0)|int }}</span></div>
+        <div class="results-item"><strong>Jumlah Saudara</strong><span class="value">{{ AzkaJumlah|default(0)|int }}</span></div>
+        <div class="results-item"><strong>Status Tempat Tinggal</strong><span class="value">{{ AzkaStatus|default('Tidak Diketahui') }}</span></div>
+        <div class="results-item total"><strong>Total Poin</strong><span class="value">{{ AzkaHasilAkhir|default(0)|round(2) }}</span></div>
+        <div class="results-item hasil"><strong>Hasil Seleksi</strong><span class="value">{{ AzkaHasil|default('Tidak Diketahui') }}</span></div>
+      </div>
     </div>
     {% endif %}
+  </div>
 </body>
 </html>

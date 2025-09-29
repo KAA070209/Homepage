@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Belanja</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -15,35 +19,58 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            line-height: 1.6;
         }
+
         h1 {
             color: #1976d2;
             margin-bottom: 25px;
             text-align: center;
+            font-size: 1.8rem;
         }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         form, .results-table {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            margin-bottom: 0;
             width: 100%;
-            max-width: 450px;
             box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-        table {
+
+        form:hover, .results-table:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-table, .results-table table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        td {
+
+        .form-table td, .results-table td {
             padding: 12px 0;
             border-bottom: 1px solid #eee;
+            vertical-align: top;
         }
-        td:first-child {
+
+        .form-table td:first-child, .results-table td:first-child {
             font-weight: 600;
             width: 40%;
+            color: #1976d2;
         }
+
         input[type="text"],
         input[type="number"] {
             width: calc(100% - 10px);
@@ -52,10 +79,24 @@
             border-radius: 6px;
             font-size: 1rem;
             margin-left: 10px;
+            transition: border-color 0.3s ease;
         }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #1976d2;
+            outline: none;
+            box-shadow: 0 0 5px rgba(25, 118, 210, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
         button {
-            display: block;
-            width: 100%;
             padding: 12px;
             background-color: #1976d2;
             color: white;
@@ -65,116 +106,218 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 20px;
         }
+
         button:hover {
             background-color: #1565c0;
             transform: translateY(-2px);
         }
+
+        .btn-home {
+            background-color: #6c757d;
+        }
+
+        .btn-home:hover {
+            background-color: #5a6268;
+        }
+
         button a {
             color: white;
             text-decoration: none;
             display: block;
+            width: 100%;
+            text-align: center;
         }
+
         .results-table {
             border: 1px solid #1976d2;
             background-color: #e3f2fd;
         }
+
         .results-table td {
             border-bottom: 1px solid #bbdefb;
         }
+
         .results-table tr:last-child td {
             border-bottom: none;
         }
 
-        /* Responsive adjustments */
+        .results-table td:first-child {
+            background-color: rgba(25, 118, 210, 0.1);
+        }
+
+        /* Mobile Responsiveness */
         @media (max-width: 600px) {
             body {
                 padding: 15px;
             }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .container {
+                gap: 15px;
+                padding: 0 5px;
+            }
+
             form, .results-table {
                 padding: 20px;
+                border-radius: 10px;
             }
-            td {
+
+            .form-table td, .results-table td {
                 display: block;
                 width: 100%;
-                padding: 8px 0;
+                padding: 10px 0;
             }
-            td:first-child {
+
+            .form-table td:first-child, .results-table td:first-child {
                 width: 100%;
-                padding-bottom: 0;
+                padding-bottom: 5px;
+                padding-top: 10px;
+                font-size: 16px; /* Prevent iOS zoom */
             }
+
             input[type="text"],
             input[type="number"] {
                 width: 100%;
                 margin-left: 0;
                 margin-top: 5px;
+                font-size: 16px; /* Prevent iOS zoom */
+                padding: 12px; /* Larger touch target */
             }
+
+            .button-group {
+                gap: 12px;
+            }
+
             button {
                 font-size: 1rem;
+                padding: 14px; /* Larger touch target */
+                border-radius: 8px;
+            }
+
+            .results-table {
+                border-radius: 10px;
+            }
+
+            .results-table td {
+                padding: 12px 0;
+                border-bottom: 1px solid #bbdefb;
+            }
+
+            .results-table td:first-child {
+                background-color: transparent;
+                font-weight: bold;
+                color: #1976d2;
+                margin-bottom: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
                 padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            form, .results-table {
+                padding: 15px;
+            }
+
+            .form-table td, .results-table td {
+                padding: 8px 0;
+            }
+
+            input[type="text"],
+            input[type="number"] {
+                padding: 10px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+
+        /* Ensure no horizontal scroll */
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <h1>Aplikasi Belanja</h1>
-    <form action="{{ url_for('Belanja') }}" method="post">
-        <table>
-            <tr>
-                <td>Nama</td>
-                <td><input type="text" name="AzkaNamaBelanja" required></td>
-            </tr>
-            <tr>
-                <td>Nama Barang</td> 
-                <td><input type="text" name="AzkaNamaBarang" required></td>
-            </tr>
-            <tr>
-                <td>Harga Barang</td>
-                <td><input type="number" name="AzkaBarang" required></td>
-            </tr>
-            <tr>
-                <td>Jumlah Beli</td>
-                <td><input type="number" name="AzkaJumlah" required></td>
-            </tr>
-        </table>
-        <button type="submit">Hitung</button>
-    </form>
-    <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>     
-
-    {% if AzkaNamaBelanja %}
-        <div class="results-table">
-            <table>
+    
+    <div class="container">
+        <form action="{{ url_for('Belanja') }}" method="post">
+            <table class="form-table">
                 <tr>
                     <td>Nama</td>
-                    <td>: {{AzkaNamaBelanja}}</td>
+                    <td><input type="text" name="AzkaNamaBelanja" placeholder="Masukkan nama Anda" required></td>
                 </tr>
                 <tr>
-                    <td>Nama Barang</td>
-                    <td>: {{AzkaNamaBarang}}</td>
+                    <td>Nama Barang</td> 
+                    <td><input type="text" name="AzkaNamaBarang" placeholder="Masukkan nama barang" required></td>
                 </tr>
                 <tr>
-                    <td>Harga Satuan</td>
-                    <td>: {{AzkaBarang}}</td>
+                    <td>Harga Barang (Rp)</td>
+                    <td><input type="number" name="AzkaBarang" min="0" step="1000" placeholder="0" required></td>
                 </tr>
                 <tr>
-                    <td>Jumlah Barang</td>
-                    <td>: {{AzkaJumlah}}</td>
-                </tr>
-                <tr>
-                    <td>Total Belanja</td>
-                    <td>: {{AzkaTotalBelanja}}</td>
-                </tr>
-                <tr>
-                    <td>Diskon</td>
-                    <td>: {{AzkaDiskon}}</td>
-                </tr>
-                <tr>
-                    <td>Total Bayar</td>
-                    <td>: {{AzkaTotalBayar}}</td>
+                    <td>Jumlah Beli</td>
+                    <td><input type="number" name="AzkaJumlah" min="1" placeholder="1" required></td>
                 </tr>
             </table>
-        </div>
-    {% endif %}
+            
+            <div class="button-group">
+                <button type="submit">Hitung Total Belanja</button>
+                <button type="reset" style="background-color: #ffc107; color: #333;">Reset Form</button>
+            </div>
+        </form>
+
+        <button class="btn-home"><a href="{{ url_for('index') }}">Kembali ke Homepage</a></button>     
+
+        {% if AzkaNamaBelanja %}
+            <div class="results-table">
+                <table>
+                    <tr>
+                        <td>Nama</td>
+                        <td>: {{ AzkaNamaBelanja }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nama Barang</td>
+                        <td>: {{ AzkaNamaBarang }}</td>
+                    </tr>
+                    <tr>
+                        <td>Harga Satuan (Rp)</td>
+                        <td>: {{ AzkaBarang|default(0)|int }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jumlah Barang</td>
+                        <td>: {{ AzkaJumlah|default(0)|int }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Belanja (Rp)</td>
+                        <td>: {{ AzkaTotalBelanja|default(0)|int }}</td>
+                    </tr>
+                    <tr>
+                        <td>Diskon (Rp)</td>
+                        <td>: {{ AzkaDiskon|default(0)|int }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Bayar (Rp)</td>
+                        <td>: {{ AzkaTotalBayar|default(0)|int }}</td>
+                    </tr>
+                </table>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>

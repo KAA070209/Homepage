@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hitung Nilai Rata-Rata</title>
     <style>
+        * { box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -15,47 +17,86 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            line-height: 1.6;
         }
+
         h1 {
             color: #2e7d32;
             margin-bottom: 25px;
             text-align: center;
+            font-size: 1.8rem;
         }
-        form, .results-table {
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        form, .results-section {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            margin-bottom: 0;
             width: 100%;
-            max-width: 600px;
-            box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-        table {
+
+        form:hover, .results-section:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        td {
+
+        .form-table td {
             padding: 12px 0;
             border-bottom: 1px solid #eee;
+            vertical-align: top;
         }
-        td:first-child {
+
+        .form-table td:first-child {
             font-weight: 600;
             width: 30%;
+            color: #2e7d32;
         }
-        input[type="text"],
-        input[type="number"] {
+
+        /* Baris mapel-nilai */
+        .mapel-row td { width: auto; }
+        .mapel-row td:nth-child(1) { width: 25%; }
+        .mapel-row td:nth-child(3) { width: 25%; padding-left: 20px; }
+
+        input[type="text"], input[type="number"] {
             width: calc(100% - 10px);
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 1rem;
             margin-left: 10px;
+            transition: border-color 0.3s ease;
         }
+
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #4caf50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
         button {
-            display: block;
-            width: 100%;
             padding: 12px;
             background-color: #4caf50;
             color: white;
@@ -65,27 +106,33 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: 20px;
         }
-        button:hover {
-            background-color: #388e3c;
-            transform: translateY(-2px);
-        }
-        button a {
-            color: white;
-            text-decoration: none;
-            display: block;
-        }
-        .results-table {
+
+        button:hover { background-color: #388e3c; transform: translateY(-2px); }
+        .btn-home { background-color: #6c757d; }
+        .btn-home:hover { background-color: #5a6268; }
+        .btn-reset { background-color: #ffc107; color: #333; }
+        .btn-reset:hover { background-color: #e0a800; }
+        button a { color: inherit; text-decoration: none; display: block; width: 100%; }
+
+        /* Results Section */
+        .results-section {
             border: 1px solid #4caf50;
             background-color: #e8f5e9;
         }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
         .results-table td {
+            padding: 12px 0;
             border-bottom: 1px solid #c8e6c9;
         }
-        .results-table tr:last-child td {
-            border-bottom: none;
-        }
+
+        .results-table tr:last-child td { border-bottom: none; }
         .results-table .header-row td {
             background-color: #a5d6a7;
             color: #1b5e20;
@@ -95,106 +142,172 @@
         .results-table .student-name-cell {
             text-align: center;
             vertical-align: middle;
+            background-color: #c8e6c9;
+            font-size: 1.1rem;
         }
 
-        /* Responsive adjustments */
+        /* Mobile */
         @media (max-width: 600px) {
-            body {
-                padding: 15px;
+            body { padding: 15px; }
+            h1 { font-size: 1.5rem; margin-bottom: 20px; }
+            .container { gap: 15px; padding: 0 5px; }
+            form, .results-section { padding: 20px; border-radius: 10px; }
+
+            .form-table td { display: block; width: 100%; padding: 10px 0; }
+            .form-table td:first-child { width: 100%; padding-bottom: 5px; font-size: 16px; }
+            .mapel-row { display: block; }
+            .mapel-row td { display: block; width: 100%; padding: 8px 0; }
+            .mapel-row td:nth-child(3) { padding-left: 0; margin-top: 10px; border-top: 1px solid #eee; }
+
+            input[type="text"], input[type="number"] {
+                width: 100%; margin-left: 0; margin-top: 5px;
+                font-size: 16px; padding: 12px;
             }
-            form, .results-table {
-                padding: 20px;
-            }
-            td {
-                display: block;
-                width: 100%;
-                padding: 8px 0;
-            }
-            td:first-child {
-                width: 100%;
-                padding-bottom: 0;
-            }
-            input[type="text"],
-            input[type="number"] {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 5px;
-            }
-            button {
-                font-size: 1rem;
-                padding: 10px;
-            }
-            .results-table .header-row td {
-                font-size: 0.9rem;
-            }
-            .results-table .student-name-cell {
-                font-size: 0.9rem;
-            }
+
+            .button-group { gap: 12px; }
+            button { font-size: 1rem; padding: 14px; border-radius: 8px; }
+
+            .results-table { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 10px; }
+            h1 { font-size: 1.3rem; }
+            form, .results-section { padding: 15px; }
+            .form-table td { padding: 8px 0; }
+            input[type="text"], input[type="number"] { padding: 10px; }
+            button { padding: 12px; font-size: 16px; }
+        }
+
+        /* Mobile results tampil selalu */
+        /* Default: sembunyikan di desktop */
+        .results-mobile {
+            display: none;
+        }
+
+        /* Saat layar max 600px: tampilkan */
+        @media (max-width: 600px) {
+            .results-table { display: none; }
+            .results-mobile { display: block; margin-top: 15px; }
+        }
+
+        .results-mobile .student-name {
+            background-color: #a5d6a7;
+            color: #1b5e20;
+            font-weight: bold;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .results-item {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #4caf50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .results-item strong { color: #2e7d32; flex: 1; }
+        .results-item .value { flex: 1; text-align: right; font-weight: bold; }
+        .results-item.mapel { display: block; }
+        .results-item.mapel .mapel-name { font-weight: 600; color: #2e7d32; margin-bottom: 4px; }
+        .results-item.mapel .nilai { text-align: right; font-weight: bold; color: #388e3c; }
+        .results-item.total {
+            background-color: #c8e6c9;
+            border-left-color: #2e7d32;
+            font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
     <h1>Hitung Nilai Rata-Rata</h1>
-    <form action="{{ url_for('Rata') }}" method="post">
-        <table>
-            <tr>
-                <td>Nama Siswa</td>
-                <td><input type="text" name="AzkaNamaSiswa" required></td>
-            </tr>
-            <tr>
-                <td>Mata Pelajaran 1</td>
-                <td><input type="text" name="AzkaMapel1" required></td>
-                <td>Nilai 1</td>
-                <td><input type="number" name="AzkaNilai1" min="0" max="100" required></td>
-            </tr>
-            <tr>
-                <td>Mata Pelajaran 2</td>
-                <td><input type="text" name="AzkaMapel2" required></td>
-                <td>Nilai 2</td>
-                <td><input type="number" name="AzkaNilai2" min="0" max="100" required></td>
-            </tr>
-            <tr>
-                <td>Mata Pelajaran 3</td>
-                <td><input type="text" name="AzkaMapel3" required></td>
-                <td>Nilai 3</td>
-                <td><input type="number" name="AzkaNilai3" min="0" max="100" required></td>
-            </tr>
-        </table>
-        <button type="submit">Hitung</button>
-    </form>
-    <button><a href="{{url_for('index')}}">Kembali ke Homepage</a></button>     
-
-    {% if AzkaNamaSiswa %}
-        <div class="results-table">
-            <table>
-                <tr class="header-row">
+    <div class="container">
+        <form action="{{ url_for('Rata') }}" method="post">
+            <table class="form-table">
+                <tr>
                     <td>Nama Siswa</td>
-                    <td>Mata Pelajaran</td>
-                    <td>Nilai</td>
+                    <td><input type="text" name="AzkaNamaSiswa" placeholder="Masukkan nama siswa" required></td>
                 </tr>
-                <tr>
-                    <td rowspan="3" class="student-name-cell">{{AzkaNamaSiswa}}</td>
-                    <td>{{AzkaMapel1}}</td>
-                    <td>{{AzkaNilai1}}</td>
+                <tr class="mapel-row">
+                    <td>Mata Pelajaran 1</td>
+                    <td><input type="text" name="AzkaMapel1" placeholder="Nama mata pelajaran 1" required></td>
+                    <td>Nilai 1</td>
+                    <td><input type="number" name="AzkaNilai1" min="0" max="100" placeholder="0-100" required></td>
                 </tr>
-                <tr>
-                    <td>{{AzkaMapel2}}</td>
-                    <td>{{AzkaNilai2}}</td>
+                <tr class="mapel-row">
+                    <td>Mata Pelajaran 2</td>
+                    <td><input type="text" name="AzkaMapel2" placeholder="Nama mata pelajaran 2" required></td>
+                    <td>Nilai 2</td>
+                    <td><input type="number" name="AzkaNilai2" min="0" max="100" placeholder="0-100" required></td>
                 </tr>
-                <tr>
-                    <td>{{AzkaMapel3}}</td>
-                    <td>{{AzkaNilai3}}</td>
-                </tr>
-                <tr>
-                    <td>Rata Rata</td>
-                    <td colspan="2" style="text-align: center;">{{AzkaRataRata}}</td>
-                </tr>
-                <tr>
-                    <td>Kategori</td>
-                    <td colspan="2" style="text-align: center;">{{AzkaKategori}}</td>
+                <tr class="mapel-row">
+                    <td>Mata Pelajaran 3</td>
+                    <td><input type="text" name="AzkaMapel3" placeholder="Nama mata pelajaran 3" required></td>
+                    <td>Nilai 3</td>
+                    <td><input type="number" name="AzkaNilai3" min="0" max="100" placeholder="0-100" required></td>
                 </tr>
             </table>
+            <div class="button-group">
+                <button type="submit">Hitung Rata-Rata</button>
+                <button type="reset" class="btn-reset">Reset Form</button>
+            </div>
+        </form>
+
+        <button class="btn-home"><a href="{{ url_for('index') }}">Kembali ke Homepage</a></button>     
+
+        {% if AzkaNamaSiswa %}
+        <div class="results-section">
+            <!-- Desktop Table -->
+            <table class="results-table">
+                <tr class="header-row">
+                    <td>Nama Siswa</td><td>Mata Pelajaran</td><td>Nilai</td>
+                </tr>
+                <tr>
+                    <td rowspan="5" class="student-name-cell">{{ AzkaNamaSiswa }}</td>
+                    <td>{{ AzkaMapel1 }}</td><td>{{ AzkaNilai1|default(0)|int }}</td>
+                </tr>
+                <tr><td>{{ AzkaMapel2 }}</td><td>{{ AzkaNilai2|default(0)|int }}</td></tr>
+                <tr><td>{{ AzkaMapel3 }}</td><td>{{ AzkaNilai3|default(0)|int }}</td></tr>
+                <tr class="total">
+                    <td>Rata-Rata</td>
+                    <td colspan="2" style="text-align: center; font-weight: bold;">{{ AzkaRataRata|default(0)|round(2) }}</td>
+                </tr>
+                <tr class="total">
+                    <td>Kategori</td>
+                    <td colspan="2" style="text-align: center; font-weight: bold; color: #2e7d32;">{{ AzkaKategori|default('Tidak Diketahui') }}</td>
+                </tr>
+            </table>
+
+            <!-- Mobile Results -->
+            <div class="results-mobile">
+                <div class="student-name">{{ AzkaNamaSiswa }}</div>
+                <div class="results-item mapel">
+                    <div class="mapel-name">{{ AzkaMapel1 }}</div>
+                    <div class="nilai">{{ AzkaNilai1|default(0)|int }}</div>
+                </div>
+                <div class="results-item mapel">
+                    <div class="mapel-name">{{ AzkaMapel2 }}</div>
+                    <div class="nilai">{{ AzkaNilai2|default(0)|int }}</div>
+                </div>
+                <div class="results-item mapel">
+                    <div class="mapel-name">{{ AzkaMapel3 }}</div>
+                    <div class="nilai">{{ AzkaNilai3|default(0)|int }}</div>
+                </div>
+                <div class="results-item total">
+                    <strong>Rata-Rata</strong>
+                    <span class="value">{{ AzkaRataRata|default(0)|round(2) }}</span>
+                </div>
+                <div class="results-item total">
+                    <strong>Kategori</strong>
+                    <span class="value">{{ AzkaKategori|default('Tidak Diketahui') }}</span>
+                </div>
+            </div>
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
 </body>
 </html>

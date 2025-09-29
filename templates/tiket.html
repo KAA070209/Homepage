@@ -3,214 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Form Pembelian Tiket Bioskop</title>
     <style>
         * {
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: linear-gradient(to bottom right, #dce3ec, #f4f7fa);
-      animation: fadeIn 1s ease-in;
-    }
+            box-sizing: border-box;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to bottom right, #dce3ec, #f4f7fa);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-in;
+        }
 
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 30px;
-      animation: fadeIn 1.2s ease-in-out;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 30px;
-      flex-wrap: wrap;
-      animation: fadeIn 1.5s ease-in;
-    }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            animation: fadeIn 1.2s ease-in-out;
+        }
 
-    form {
-      background-color: #ffffff;
-      width: 100%;
-      max-width: 350px;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 1.5s ease-in;
+        }
 
-    form:hover, .results:hover {
-      transform: scale(1.01);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-    }
+        .form-section {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-    input[type="text"], input[type="number"],select {
-      width: 95%;
-      padding: 5px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      transition: border-color 0.3s;
-    }
+        .form-section:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
 
+        .form-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
 
+        .form-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
 
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background-color: #3498db;
-      text-align: center;
-      color: white;
-      border: none;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-    }
+        .form-table td:first-child {
+            font-weight: 600;
+            width: 30%;
+            color: #2c3e50;
+        }
 
-    button:hover {
-      background-color: #2980b9;
-      transform: scale(1.03);
-    }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 10px);
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-left: 10px;
+            transition: border-color 0.3s ease;
+        }
 
-    .total{
-        font-weight: bold;
-        font-size: 15px;
-        margin-top: 10px;
-    }
-    .receipt {
-      background: white;
-      width: 350px;
-      margin: auto;
-      padding: 20px;
-      border: 1px dashed #000;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
 
-    .footer {
-      text-align: center;
-      margin-top: 14px;
-      font-size: 13px;
-      color: #444;
-    }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-    .receipt h2, .receipt h3 {
-      text-align: center;
-      margin: 5px 0;
-    }
-    .line {
-      border-top: 1px dashed #000;
-      margin: 10px 0;
-    }
-    .receipt td {
-      font-size: 13px;
-      margin: 4px 0;
-      white-space: pre-wrap;
-    }
-    .logo {
-      display: block;
-      margin: 0 auto 10px;
-      width: 60px;
-      border-radius: 50%;
-      box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    }
-    .info p {
-      font-size: 14px;
-      margin: 4px 0;
-      display: flex;
-      justify-content: space-between;
-    }
-    .info p span{
-        text-align: left;
-    }
+        button {
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
 
+        .btn-home {
+            background-color: #6c757d;
+        }
+
+        .btn-home:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-reset {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .btn-reset:hover {
+            background-color: #e0a800;
+        }
+
+        button a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Receipt/Results Section */
+        .receipt {
+            background: #ffffff;
+            width: 100%;
+            padding: 25px;
+            border: 1px dashed #3498db;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .receipt:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .receipt h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
+        }
+
+        .line {
+            border-top: 1px dashed #bdc3c7;
+            margin: 15px 0;
+        }
+
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .receipt-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .receipt-table td:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+            width: 40%;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            text-align: center;
+            color: #27ae60;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .container {
+                gap: 15px;
+                padding: 0 5px;
+            }
+
+            .form-section {
+                padding: 20px;
+                border-radius: 12px;
+            }
+
+            .form-table td {
+                display: block;
+                width: 100%;
+                padding: 10px 0;
+            }
+
+            .form-table td:first-child {
+                width: 100%;
+                padding-bottom: 5px;
+                padding-top: 10px;
+                font-size: 16px; /* Prevent iOS zoom */
+            }
+
+            input[type="text"],
+            input[type="number"],
+            select {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 5px;
+                font-size: 16px; /* Prevent iOS zoom */
+                padding: 12px; /* Larger touch target */
+            }
+
+            .button-group {
+                gap: 12px;
+            }
+
+            button {
+                font-size: 1rem;
+                padding: 14px; /* Larger touch target */
+            }
+
+            /* Receipt Mobile: Stacked cards instead of table */
+            .receipt-table {
+                display: table; /* tetap tampil di mobile */
+            }
+
+            .receipt-mobile {
+                display: block;
+                margin-bottom: 15px;
+            }
+
+            .receipt-item {
+                background: #f8f9fa;
+                padding: 12px;
+                border-radius: 8px;
+                margin-bottom: 8px;
+                border-left: 4px solid #3498db;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .receipt-item strong {
+                color: #2c3e50;
+                flex: 1;
+            }
+
+            .receipt-item .value {
+                flex: 1;
+                text-align: right;
+                font-weight: bold;
+            }
+
+            .total {
+                font-size: 1.2rem;
+                text-align: right;
+                padding: 15px;
+                background: #e8f5e8;
+                border-left-color: #27ae60;
+            }
+
+            .footer {
+                font-size: 13px;
+                padding-top: 10px;
+                border-top: 1px solid #eee;
+            }
+
+            .receipt {
+                padding: 20px;
+                border-radius: 10px;
+            }
+
+            .receipt h2 {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .form-section {
+                padding: 15px;
+            }
+
+            .form-table td {
+                padding: 8px 0;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            select {
+                padding: 10px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .receipt-item {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .receipt {
+                padding: 15px;
+            }
+        }
+
+        /* Hide mobile receipt on desktop */
+        .receipt-mobile {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <h1>Form Pembelian Tiket Bioskop</h1>
     
     <div class="container">
-        <center>
-            <h1>Form Pembelian Tiket bioskop</h1>
+        <div class="form-section">
             <form action="{{ url_for('tiket') }}" method="post">
-                <table>
+                <table class="form-table">
                     <tr>
                         <td>Nama</td>
-                        <td>: <input type="text" name="AzkaNamaTiket" required></td>
+                        <td><input type="text" name="AzkaNamaTiket" placeholder="Masukkan nama lengkap" required></td>
                     </tr>
                     <tr>
                         <td>Umur</td> 
-                        <td>: <input type="number" name="AzkaUmur" id="" required></td>
+                        <td><input type="number" name="AzkaUmur" min="1" max="100" placeholder="Umur Anda" required></td>
                     </tr>
                     <tr>
                         <td>Hari</td>
-                        <td>: 
-                          <select name="AzkaHari" id="" required>
-                            <option value="">-- Pilih Hari --</option>
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis">Kamis</option>
-                            <option value="Jumat">Jumat</option>
-                            <option value="Sabtu">Sabtu</option>
-                            <option value="Minggu">Minggu</option>
-                          </select><td>
+                        <td>
+                            <select name="AzkaHari" required>
+                                <option value="">-- Pilih Hari --</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                                <option value="Sabtu">Sabtu</option>
+                                <option value="Minggu">Minggu</option>
+                            </select>
+                        </td>
                     </tr>
                 </table>
-                <Button type="submit">Hitung</Button>
-                <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
-              </form>
-        </center>
-    </div>
-    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
-    {% if AzkaNamaTiket %}
-        <div class="receipt" id="struk">
-        <div class="line"></div>
-            <h2>Hasil Pemesanan</h2>
-        <div class="line"></div>
-        <div class="info">
-            <table>
-                <tr>
-                    <td>Nama Pembeli</td>
-                    <td>: {{AzkaNamaTiket}}</td>
-                </tr>
-                <tr>
-                    <td>Umur</td>
-                    <td>: {{AzkaHari}}</td>
-                </tr>
-                <tr>
-                    <td>Hari</td>
-                    <td>: {{AzkaHari}}</td>
-                </tr>
-                <tr>
-                    <td>Harga</td>
-                    <td>: {{AzkaHarga}}</td>
-                </tr>
-                <tr>
-                <tr>
-                    <td>Diskon</td>
-                    <td>: {{AzkaDiskon}}</td>
-                </tr>
-            </table>
-            <div class="line"></div>       
-            <p class="total">Total Bayar <span>Rp.{{AzkaTotal}}</span></p>
-            <div class="line"></div>
-            <div class="footer">
-                Terimakasi atas kunjungan anda! <br>
-            </div>
-            </div>
+                
+                <div class="button-group">
+                    <button type="submit">Hitung Total</button>
+                    <button type="reset" class="btn-reset">Reset Form</button>
+                </div>
+            </form>
         </div>
-    {% endif %}
+
+        <button class="btn-home"><a href="{{ url_for('index') }}">Kembali ke Homepage</a></button>     
+
+        {% if AzkaNamaTiket %}
+            <div class="receipt">
+                <h2>Hasil Pemesanan Tiket</h2>
+                <div class="line"></div>
+                
+                <!-- Desktop Table -->
+                <table class="receipt-table">
+                    <tr>
+                        <td>Nama Pembeli</td>
+                        <td>: {{ AzkaNamaTiket }}</td>
+                    </tr>
+                    <tr>
+                        <td>Umur</td>
+                        <td>: {{ AzkaUmur|default(0)|int }}</td>
+                    </tr>
+                    <tr>
+                        <td>Hari</td>
+                        <td>: {{ AzkaHari|default('Tidak Diketahui') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Harga</td>
+                        <td>: Rp {{ AzkaHarga|default(0)|int }}</td>
+                    </tr>
+                    <tr>
+                        <td>Diskon</td>
+                        <td>: Rp {{ AzkaDiskon|default(0)|int }}</td>
+                    </tr>
+                </table>
+                
+                <div class="line"></div>
+                <p class="total">Total Bayar: Rp {{ AzkaTotal|default(0)|int }}</p>
+                <div class="line"></div>
+                <div class="footer">
+                    Terima kasih atas kunjungan Anda!<br>
+                    Selamat menonton film favorit Anda.
+                </div>
+            </div>
+
+            <!-- Mobile Receipt -->
+            <div class="receipt-mobile">
+                <div class="receipt-item">
+                    <strong>Nama Pembeli</strong>
+                    <span class="value">{{ AzkaNamaTiket }}</span>
+                </div>
+                <div class="receipt-item">
+                    <strong>Umur</strong>
+                    <span class="value">{{ AzkaUmur|default(0)|int }}</span>
+                </div>
+                <div class="receipt-item">
+                    <strong>Hari</strong>
+                    <span class="value">{{ AzkaHari|default('Tidak Diketahui') }}</span>
+                </div>
+                <div class="receipt-item">
+                    <strong>Harga</strong>
+                    <span class="value">Rp {{ AzkaHarga|default(0)|int }}</span>
+                </div>
+                <div class="receipt-item">
+                    <strong>Diskon</strong>
+                    <span class="value">Rp {{ AzkaDiskon|default(0)|int }}</span>
+                </div>
+                <div class="receipt-item total">
+                    <strong>Total Bayar</strong>
+                    <span class="value">Rp {{ AzkaTotal|default(0)|int }}</span>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
