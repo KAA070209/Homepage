@@ -1,23 +1,21 @@
-import os
-from flask import Flask, render_template, request, url_for
-from dotenv import load_dotenv
+from flask import Flask, render_template, url_for, request
+from dotenv import dotenv_values
 
-# load .env
-load_dotenv()
+application = Flask(__name__)
 
-app = Flask(__name__, template_folder='templates')
-app.secret_key = os.getenv("SECRET_KEY", "azka123")
+# Load konfigurasi dari .env
+application.config.from_file(".env", load=dotenv_values)
 
-@app.route("/")
+@application.route('/')
 def index():
     return render_template("index.html")
 
-@app.route("/profil")
+@application.route("/profil")
 def profil():
     return render_template("profil.html")
 
 
-@app.route("/suhu", methods=["GET", "POST"])
+@application.route("/suhu", methods=["GET", "POST"])
 def suhu():
     if request.method == "POST":
         AzkaCuaca = request.form["AzkaCuaca"]
@@ -43,7 +41,7 @@ def suhu():
     return render_template("suhu.html")
 
 
-@app.route("/gaji", methods=["GET", "POST"])
+@application.route("/gaji", methods=["GET", "POST"])
 def gaji():
     if request.method == "POST":
         AzkaNama = request.form["AzkaNama"]
@@ -103,7 +101,7 @@ def gaji():
 
 
 
-@app.route("/ujian", methods=["GET", "POST"])
+@application.route("/ujian", methods=["GET", "POST"])
 def ujian():
     if request.method == 'POST':
         AzkaNamaUjian = request.form["AzkaNamaUjian"]
@@ -143,7 +141,7 @@ def ujian():
 
     return render_template("ujian.html")
 
-@app.route("/Belanja", methods=["GET", "POST"])
+@application.route("/Belanja", methods=["GET", "POST"])
 def Belanja():
     if request.method == 'POST':
         AzkaNamaBelanja = request.form["AzkaNamaBelanja"]
@@ -169,7 +167,7 @@ def Belanja():
 
     return render_template("Belanja.html")
 
-@app.route("/Rata", methods=["GET", "POST"])
+@application.route("/Rata", methods=["GET", "POST"])
 def Rata():
     if request.method == 'POST':
         AzkaNamaSiswa = request.form["AzkaNamaSiswa"]
@@ -203,7 +201,7 @@ def Rata():
 
     return render_template("Rata-Rata.html")
 
-@app.route("/beasiswa", methods=["GET", "POST"])
+@application.route("/beasiswa", methods=["GET", "POST"])
 def beasiswa():
     if request.method == 'POST':
         AzkaNamaSiswaBeasiswa = request.form["AzkaNamaSiswaBeasiswa"]
@@ -249,7 +247,7 @@ def beasiswa():
 
     return render_template("beasiswa.html")
 
-@app.route("/member", methods=["GET", "POST"])
+@application.route("/member", methods=["GET", "POST"])
 def member():
     if request.method == 'POST':
         AzkaNamaMember = request.form["AzkaNamaMember"]
@@ -294,7 +292,7 @@ def member():
                                     AzkaHasil=AzkaHasil)
 
     return render_template("Diskon_Barang_Member.html")  
-@app.route("/tiket", methods=["GET", "POST"])
+@application.route("/tiket", methods=["GET", "POST"])
 def tiket():
     if request.method == 'POST':
         AzkaNamaTiket = request.form["AzkaNamaTiket"]
@@ -326,7 +324,7 @@ def tiket():
 
     return render_template("tiket.html")
     
-@app.route("/vocher", methods=["GET" , "POST"])
+@application.route("/vocher", methods=["GET" , "POST"])
 def vocher():
     if request.method == 'POST':
         AzkaPelanggan = request.form['AzkaPelanggan']
@@ -371,7 +369,7 @@ def vocher():
         
     return render_template("vocher.html")
 
-@app.route("/bioskop", methods=["GET", "POST"])
+@application.route("/bioskop", methods=["GET", "POST"])
 def bioskop():
     if request.method == 'POST':
         AzkaNamaBioskop = request.form["AzkaNamaBioskop"]
@@ -414,7 +412,7 @@ def bioskop():
     return render_template("bioskop_bugigin.html")
 
 
-@app.route("/kasir", methods=["GET", "POST"])
+@application.route("/kasir", methods=["GET", "POST"])
 def kasir():
     if request.method == 'POST':
         AzkaNamaKasir = request.form["AzkaNamaKasir"]
@@ -452,7 +450,7 @@ def kasir():
 
     return render_template("kasir.html")
 
-@app.route("/operasi", methods=["GET", 'POST'])
+@application.route("/operasi", methods=["GET", 'POST'])
 def operasi():
     azka = 5
     bazka = 10
@@ -483,7 +481,7 @@ def operasi():
 
     return render_template('operasi.html')
 
-@app.route('/biodata', methods=['GET', 'POST'])
+@application.route('/biodata', methods=['GET', 'POST'])
 def biodata():
         
     if request.method == "POST":
@@ -516,7 +514,7 @@ def biodata():
     return render_template("biodata.html")
 
 
-@app.route("/dasar", methods=["GET", "POST"])
+@application.route("/dasar", methods=["GET", "POST"])
 def dasar():
     Azkahasil = []
     if request.method == "POST":
@@ -528,7 +526,7 @@ def dasar():
 
     return render_template("dasar.html")
 
-@app.route("/faktorial", methods=["GET", "POST"])
+@application.route("/faktorial", methods=["GET", "POST"])
 def faktorial():
     AzkahasilFak = None
     AzkaangkaFak = None
@@ -543,7 +541,7 @@ def faktorial():
         return render_template("faktorial.html", AzkaangkaFak=AzkaangkaFak, AzkahasilFak=AzkahasilFak)
     return render_template("faktorial.html")
 
-@app.route("/Perkalian", methods=["GET", "POST"])
+@application.route("/Perkalian", methods=["GET", "POST"])
 def Perkalian():
     AzkahasilPer = []
     AzkaangkaPer = None
@@ -556,7 +554,7 @@ def Perkalian():
         return render_template("Perkalian.html", AzkaangkaPer=AzkaangkaPer, AzkahasilPer=AzkahasilPer)
     return render_template("Perkalian.html")
 
-@app.route("/Bil_Genap", methods=["GET", "POST"])
+@application.route("/Bil_Genap", methods=["GET", "POST"])
 def Bil_Genap():
     AzkahasilGen = None
     AzkaangkaGen = None
@@ -573,7 +571,7 @@ def Bil_Genap():
         return render_template("Bil_Genap.html", AzkaangkaGen=AzkaangkaGen, AzkahasilGen=AzkahasilGen, AzkaGenap=AzkaGenap)
     return render_template("Bil_Genap.html")
 
-@app.route("/jumlah_nama", methods=["GET", "POST"])
+@application.route("/jumlah_nama", methods=["GET", "POST"])
 def jumlah_nama():
     AzkaNamaA = ""
     HasilAzka = []
@@ -589,7 +587,7 @@ def jumlah_nama():
         return render_template("jumlah_nama.html", AzkajumlahA=AzkajumlahA, AzkaNamaA=AzkaNamaA, HasilAzka=HasilAzka)
     return render_template("jumlah_nama.html")
 
-@app.route("/input", methods=['GET', 'POST'])
+@application.route("/input", methods=['GET', 'POST'])
 def input():
     if request.method == 'POST':
         AzkaAngkaR = int(request.form['AzkaAngkaR'])
@@ -597,7 +595,7 @@ def input():
     return render_template('nilai_rata_rata.html')
 
 
-@app.route("/nilai_rata_rata", methods=['GET','POST'])
+@application.route("/nilai_rata_rata", methods=['GET','POST'])
 def nilai_rata_rata():
     AzkaAngkaR =  request.form.get('AzkaAngkaR')
     AzkaList = []
@@ -622,7 +620,7 @@ def nilai_rata_rata():
         AzkaRataRataR=AzkaRataRataR
     )
 
-@app.route("/jil_nap", methods=['GET','POST'])
+@application.route("/jil_nap", methods=['GET','POST'])
 def jil_nap():
     AzkaKet = []
     AzkaAngkaJ = request.form.get('AzkaAngkaJ')
@@ -636,7 +634,7 @@ def jil_nap():
 
     return render_template('jil_nap.html', AzkaAngkaJ=AzkaAngkaJ,AzkaKet=AzkaKet )
 
-@app.route("/prima", methods=['GET','POST'])
+@application.route("/prima", methods=['GET','POST'])
 def prima():
     AzkaKetP = []
     AzkaAngkaP = request.form.get('AzkaAngkaP')
@@ -656,4 +654,4 @@ def prima():
     return render_template('prima.html', AzkaAngkaP=AzkaAngkaP,AzkaKetP=AzkaKetP )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
