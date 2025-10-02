@@ -3,7 +3,6 @@ from dotenv import dotenv_values
 
 application = Flask(__name__)
 
-# Load konfigurasi dari .env
 application.config.update(dotenv_values(".env"))
 
 
@@ -417,37 +416,56 @@ def bioskop():
 def kasir():
     if request.method == 'POST':
         AzkaNamaKasir = request.form["AzkaNamaKasir"]
-        AzkaHarga = int (request.form["AzkaHarga"])
+        AzkaHarga = int(request.form["AzkaHarga"])
         AzkaBarang = request.form["AzkaBarang"]
-        AzkaJumlahBarang = int (request.form["AzkaJumlahBarang"])
+        AzkaJumlahBarang = int(request.form["AzkaJumlahBarang"])
         AzkaPembayaran = request.form["AzkaPembayaran"]
         AzkaKategori = request.form["AzkaKategori"]
-        AzkaSub = AzkaHarga*AzkaJumlahBarang
+
+        AzkaSub = AzkaHarga * AzkaJumlahBarang
+
         if AzkaKategori == "Makanan":
             if AzkaSub >= 50000:
-                AzkaDiskon = int (AzkaSub*0.1)
+                AzkaDiskon = int(AzkaSub * 0.1)
             else:
-                AzkaDiskon= int (AzkaSub*0.05)   
-        elif AzkaSub == "Minuman" :
-            if AzkaHarga >= 30000:
-                AzkaDiskon = int (AzkaSub*0.07)
-            else:
-                AzkaDiskon = int (AzkaSub*0.03)
-        elif AzkaSub == "lainnya" :
-            if AzkaHarga >= 100000:
-                AzkaDiskon = int (AzkaSub*0.08)
-            else :
-                AzkaDiskon = int (AzkaSub*0.02)
+                AzkaDiskon = int(AzkaSub * 0.05)
 
-        if AzkaPembayaran == "Transfer" :
+        elif AzkaKategori == "Minuman":
+            if AzkaHarga >= 30000:
+                AzkaDiskon = int(AzkaSub * 0.07)
+            else:
+                AzkaDiskon = int(AzkaSub * 0.03)
+
+        elif AzkaKategori == "lainnya":
+            if AzkaHarga >= 100000:
+                AzkaDiskon = int(AzkaSub * 0.08)
+            else:
+                AzkaDiskon = int(AzkaSub * 0.02)
+
+        else:
+            AzkaDiskon = 0   
+
+
+        if AzkaPembayaran == "Transfer":
             AzkaAdmin = 2500
         else:
             AzkaAdmin = 0
 
-
         AzkaTotal = AzkaSub - AzkaDiskon + AzkaAdmin
 
-        return render_template("kasir.html",AzkaKategori=AzkaKategori,AzkaNamaKasir=AzkaNamaKasir,AzkaBarang=AzkaBarang,AzkaJumlahBarang=AzkaJumlahBarang,AzkaHarga=AzkaHarga,AzkaSub=AzkaSub,AzkaPembayaran=AzkaPembayaran,AzkaDiskon=AzkaDiskon,AzkaTotal=AzkaTotal)
+        return render_template(
+            "kasir.html",
+            AzkaKategori=AzkaKategori,
+            AzkaNamaKasir=AzkaNamaKasir,
+            AzkaBarang=AzkaBarang,
+            AzkaJumlahBarang=AzkaJumlahBarang,
+            AzkaHarga=AzkaHarga,
+            AzkaSub=AzkaSub,
+            AzkaPembayaran=AzkaPembayaran,
+            AzkaDiskon=AzkaDiskon,
+            AzkaAdmin=AzkaAdmin,
+            AzkaTotal=AzkaTotal
+        )
 
     return render_template("kasir.html")
 
@@ -653,6 +671,45 @@ def prima():
             AzkaKetP.append(f"{AzkaBilangan} Bukan Prima")
 
     return render_template('prima.html', AzkaAngkaP=AzkaAngkaP,AzkaKetP=AzkaKetP )
+
+@application.route('/penjumlahan', methods=['GET', 'POST'])
+def penjumlahan():
+    if request.method == "POST":
+        AzkaAngkaP = int(request.form['AzkaAngkaP'])
+
+        iP = 1
+        AzkajumlahP = 0
+
+        while iP <= AzkaAngkaP:
+            AzkajumlahP += iP
+            iP += 1
+
+        return render_template('penjumlahan.html', AzkajumlahP=AzkajumlahP, AzkaAngkaP=AzkaAngkaP)
+
+    return render_template('penjumlahan.html')
+
+@application.route("/ganjil_genap_while", methods=['GET','POST'])
+def ganjil_genap_while():
+    if request.method == "POST":
+            AzkaAngkaW = int(request.form['AzkaAngkaW'])
+            iW = 1
+            AzkajumlahgenapW = 0
+            Azkajumlah_ganjilW = 0
+
+            while iW <= AzkaAngkaW:
+                if iW % 2 == 0:
+                    AzkajumlahgenapW += iW
+                else:
+                    Azkajumlah_ganjilW += iW
+                iW += 1
+
+            return render_template(
+                    'ganjil_genap_while.html',
+                    AzkaAngkaW=AzkaAngkaW,
+                    AzkajumlahgenapW=AzkajumlahgenapW,
+                    Azkajumlah_ganjilW=Azkajumlah_ganjilW
+                )
+    return render_template('ganjil_genap_while.html')
 
 if __name__ == '__main__':
     application.run(debug=True)

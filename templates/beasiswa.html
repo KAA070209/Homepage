@@ -125,7 +125,6 @@
       text-align: center;
     }
 
-    /* Results Section */
     .results-section {
       border: 1px solid #00796b;
       background-color: #e0f2f7;
@@ -152,11 +151,9 @@
     .results-table tr:last-child td { border-bottom: none; }
     .results-table td:first-child { font-weight: bold; color: #00796b; }
 
-    /* Default: desktop tampil tabel, mobile disembunyikan */
     .results-mobile { display: none; }
     .results-table { display: table; }
 
-    /* Mobile Responsiveness */
     @media (max-width: 600px) {
       body { padding: 15px; }
       h1 { font-size: 1.5rem; margin-bottom: 20px; }
@@ -171,7 +168,6 @@
       .button-group { gap: 12px; }
       button { font-size: 1rem; padding: 14px; border-radius: 8px; }
 
-      /* Hasil: hide tabel, tampilkan kartu */
       .results-table { display: none; }
       .results-mobile { display: block; margin-top: 15px; }
 
@@ -269,7 +265,6 @@
     <div class="results-section">
       <h1 class="results-title">Hasil Seleksi Beasiswa</h1>
 
-      <!-- Desktop Table -->
       <table class="results-table">
         <tr><td>Nama Siswa</td><td>{{ AzkaNamaSiswaBeasiswa }}</td></tr>
         <tr><td>Rata-Rata Nilai</td><td>{{ AzkaNilai|default(0)|round(2) }}</td></tr>
@@ -280,7 +275,6 @@
         <tr class="hasil"><td>Hasil Seleksi</td><td>{{ AzkaHasil|default('Tidak Diketahui') }}</td></tr>
       </table>
 
-      <!-- Mobile Results -->
       <div class="results-mobile">
         <div class="results-item"><strong>Nama Siswa</strong><span class="value">{{ AzkaNamaSiswaBeasiswa }}</span></div>
         <div class="results-item"><strong>Rata-Rata Nilai</strong><span class="value">{{ AzkaNilai|default(0)|round(2) }}</span></div>

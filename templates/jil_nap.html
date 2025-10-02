@@ -1,34 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Angka</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 28px 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input[type="number"] {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #74ebd5;
+      box-shadow: 0 0 8px rgba(116, 235, 213, 0.4);
+      outline: none;
+    }
+
+    .btn {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #5ed1c7, #94a6e5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-link {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 12px;
+      transition: 0.3s ease;
+    }
+
+    .btn-link:hover {
+      background: linear-gradient(135deg, #ff5a7a, #ff6fa1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .hasil {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+
+    .hasil ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .hasil li {
+      padding: 8px 10px;
+      background: #fff;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      transition: 0.3s ease;
+    }
+
+    .hasil li:hover {
+      background: #eef6ff;
+      transform: translateX(4px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      .card { padding: 20px; }
+      input, .btn, .btn-link {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="card">
+    <h2>🔢 Masukkan Angka</h2>
     <form action="{{url_for('jil_nap')}}" method="post">
-        <table>
-            <tr>
-                <td>Masukan Angka</td>
-                <td>: <input type="number" name="AzkaAngkaJ"></td>
-            </tr>
-        </table>
-        <button type="submit">Kirim</button>
+      <label for="angka">Masukan Angka</label>
+      <input type="number" name="AzkaAngkaJ" id="angka" required>
+      <button type="submit" class="btn">Kirim</button>
     </form>
-    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+    <a href="{{url_for('index')}}" class="btn-link">⬅ Kembali ke Homepage</a>
 
     {% if AzkaKet %}
-    <table>
-        <tr>
-            <td>
-                <ul>
-                {% for AzkaKet in AzkaKet %}
-                <li>{{ AzkaKet }}</li>
-                {% endfor %}
-                </ul>
-            </td>
-        </tr>
-    </table>
+    <div class="hasil">
+      <ul>
+        {% for AzkaKet in AzkaKet %}
+        <li>{{ AzkaKet }}</li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endif %}
+  </div>
 </body>
 </html>
