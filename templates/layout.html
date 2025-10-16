@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Aplikasi Azka{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head_extra %}{% endblock %}
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        header nav ul li {
+            margin-left: 20px;
+        }
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        header nav ul li a:hover {
+            color: #a8c0ff;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        footer {
+            background-color: #334155;
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: auto;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Aplikasi Azka</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('profil') }}">Profil</a></li>
+                <!-- Tambahkan link navigasi lain di sini jika diperlukan -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; {{ now().year }} Muhammad Azka Sa’adi Nabhan. All rights reserved.</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

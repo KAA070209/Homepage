@@ -27,7 +27,6 @@
       animation: fadeIn 0.6s ease-in-out;
     }
 
-    /* Sidebar */
     .sidebar {
       width: 240px;
       background: linear-gradient(180deg, var(--primary), var(--primary-light));
@@ -64,7 +63,6 @@
       transform: translateX(6px);
     }
 
-    /* Main */
     .main {
       flex: 1;
       padding: 40px;
@@ -168,7 +166,6 @@
       transform: translateY(-2px);
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       position: fixed;
@@ -190,7 +187,6 @@
       transform: scale(1.05);
     }
 
-    /* Overlay */
     .overlay {
       display: none;
       position: fixed;
@@ -206,13 +202,11 @@
       opacity: 1;
     }
 
-    /* Animations */
     @keyframes fadeIn {
       from {opacity:0; transform: translateY(10px);}
       to {opacity:1; transform: translateY(0);}
     }
 
-    /* Mobile */
     @media (max-width: 768px) {
       body {flex-direction: column;}
       .hamburger {display: block;}
@@ -229,7 +223,6 @@
       .main {padding: 20px; margin-top: 60px;}
       .card {padding: 20px;}
 
-      /* Table → responsif */
       .card table, .card tr, .card td {
         display: block;
         width: 100%;
@@ -264,11 +257,9 @@
   </style>
 </head>
 <body>
-  <!-- Hamburger Button -->
   <button class="hamburger" id="hamburger">☰</button>
   <div class="overlay" id="overlay"></div>
 
-  <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
     <h3>📘 Menu</h3>
     <ul>
@@ -277,15 +268,15 @@
       <li><a href="{{ url_for('index') }}#If-Else">⚡ If Else</a></li>
       <li><a href="{{ url_for('index') }}#If-Bersarang">🔀 If Bersarang</a></li>
       <li><a href="{{ url_for('index') }}#For">🔀 For</a></li>
+      <li><a href="{{ url_for('index') }}#While">🔀 While</a></li>
+      <li><a href="{{ url_for('index') }}#Nested-Loops">🔀 Nested-Loops</a></li>
     </ul>
   </nav>
 
-  <!-- Main -->
   <main class="main">
     <div class="card">
       <h2>Profil Muhammad Azka Sa’adi Nabhan</h2>
-      
-      <!-- Profile Header with Image and Bio -->
+
       <div class="profile-header">
         <img src="/static/profil.jpeg" alt="Foto Profil Muhammad Azka Sa’adi Nabhan" class="profile-image">
         <p class="profile-bio">
@@ -293,7 +284,6 @@
         </p>
       </div>
 
-      <!-- Basic Information Table -->
       <div class="section">
         <h3>Informasi Pribadi</h3>
         <table>
@@ -313,7 +303,6 @@
         </table>
       </div>
 
-      <!-- Hobbies Section -->
       <div class="section">
         <h3>Hobi & Minat</h3>
         <ul class="hobbies-list">
@@ -323,7 +312,6 @@
         </ul>
       </div>
 
-      <!-- Education Section -->
       <div class="section">
         <h3>Riwayat Pendidikan</h3>
         <ul class="education-list">
@@ -334,10 +322,6 @@
         </ul>
       </div>
 
-      <!-- Achievements Section -->
-      
-
-      <!-- Social Links -->
       <div class="section">
         <h3>Hubungi Saya</h3>
         <div class="social-links">

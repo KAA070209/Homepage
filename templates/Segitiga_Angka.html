@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{{url_for('Segitiga_Angka')}}" method="post">
+        <h2>Aplikasi Segitiga Batas Awal Dan Batas Akhir</h2>
+        <table>
+            <tr>
+                <td>Batas Awal : <input type="number" name="AzkaAngkaSA1" id="" required></td>
+            </tr>
+            <tr>
+                <td>Batas Akhir : <input type="number" name="AzkaAngkaSA2" id="" required></td>
+            </tr>
+        </table>
+        <button type="submit">Kirim</button>
+    </form>
+    <hr>
+    <div>{{ AzkahasilSA|safe }}</div>
+    <a href="/">Kembali</a>
+</body>
+</html>

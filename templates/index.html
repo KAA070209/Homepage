@@ -6,11 +6,10 @@
   <meta name="theme-color" content="#1e3a8a">
   <title>Kumpulan Soal Python</title>
   <style>
-    /* ================== VARIABLES ================== */
     :root {
       --primary: #1e3a8a;
       --primary-light: #2563eb;
-      --background: #f1f5f9;
+      --background: #ffffff;
       --text: #334155;
       --white: #ffffff;
       --shadow-light: rgba(0, 0, 0, 0.08);
@@ -20,7 +19,6 @@
       --transition: all 0.3s cubic-bezier(0.25, 1, 0.3, 1);
     }
 
-    /* ================== RESET ================== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Segoe UI", Arial, sans-serif;
@@ -33,23 +31,24 @@
     }
     html { scroll-behavior: smooth; }
 
-    /* ================== ANIMATIONS ================== */
     @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
     @keyframes fadeInUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
     @keyframes fadeInRight { from{opacity:0; transform:translateX(-20px);} to{opacity:1; transform:translateX(0);} }
     @keyframes fadeInScale { from{opacity:0; transform:scale(0.95);} to{opacity:1; transform:scale(1);} }
     @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateX(-40px);
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
     }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
 
-    /* ================== HAMBURGER ================== */
+  #snow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: transparent;
+    pointer-events: none;
+  }
     .hamburger {
       display: none;
       position: fixed;
@@ -68,7 +67,6 @@
     .hamburger:hover { background: var(--primary-light); }
     .hamburger span { display: block; transition: var(--transition); }
 
-    /* ================== SIDEBAR ================== */
     .sidebar {
       background: linear-gradient(180deg, var(--primary), var(--primary-light));
       color: var(--white);
@@ -99,6 +97,8 @@
     .sidebar ul li:nth-child(3){animation-delay:1s;}
     .sidebar ul li:nth-child(4){animation-delay:1.2s;}
     .sidebar ul li:nth-child(5){animation-delay:1.4s;}
+    .sidebar ul li:nth-child(6){animation-delay:1.6s;}
+    .sidebar ul li:nth-child(7){animation-delay:1.8s;}
     .sidebar ul li a {
       text-decoration: none;
       color: var(--white);
@@ -114,7 +114,6 @@
       box-shadow: 2px 2px 10px var(--shadow-dark);
     }
 
-    /* ================== MAIN ================== */
     .main {
       flex: 1;
       padding: 40px;
@@ -141,7 +140,6 @@
       animation: fadeInUp 1s ease forwards 1s;
     }
 
-    /* ================== CARDS ================== */
     .card-container {
       display: flex;
       flex-wrap: wrap;
@@ -184,21 +182,19 @@
       color: var(--primary-light);
     }
 
-/* ================== DESKTOP (≥769px) ================== */
-  @media (min-width: 769px) {
-    body { display: flex; }
-    .sidebar {
-      width: 240px;
-      position: sticky;
-      top: 0;
-      transform: translateX(-15px);
-      opacity: 0;
-      animation: slideIn 0.8s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+    @media (min-width: 769px) {
+      body { display: flex; }
+      .sidebar {
+        width: 240px;
+        position: sticky;
+        top: 0;
+        transform: translateX(-15px);
+        opacity: 0;
+        animation: slideIn 0.8s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+      }
+      .main { margin-left: 0; }
     }
-    .main { margin-left: 0; }
-  }
 
-    /* ================== MOBILE (≤768px) ================== */
     @media (max-width: 768px) {
       .hamburger { display: block; }
       .sidebar {
@@ -226,7 +222,6 @@
       .sidebar ul li a { font-size: 14px; padding: 8px 12px; }
     }
 
-    /* ================== SMALL MOBILE (≤480px) ================== */
     @media (max-width: 480px) {
       .main { padding: 15px; padding-top: 70px; }
       .main h1 { font-size: 20px; }
@@ -236,29 +231,32 @@
       .hamburger { top: 15px; left: 15px; padding: 10px; font-size: 18px; }
     }
 
-    /* Lock scroll ketika sidebar open */
     body.sidebar-open { overflow: hidden; }
+
+    #While .card:nth-child(1) { animation-delay: 2.6s; }
+    #While .card:nth-child(2) { animation-delay: 2.8s; }
   </style>
 </head>
 <body>
-  <!-- HAMBURGER -->
+  <canvas id="snow"></canvas>
+
   <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span>☰</span>
   </button>
 
-  <!-- SIDEBAR -->
   <nav class="sidebar" id="sidebar">
     <h3>📘 Menu</h3>
     <ul>
       <li><a href="{{ url_for('profil') }}">📑 Profil</a></li>
       <li><a href="#Runtunan">📑 Runtunan</a></li>
       <li><a href="#If-Else">⚡ If Else</a></li>
-      <li><a href="#If-Bersarang">🔀 If Bersarang</a></li>
+      <li><a href="#If-Bersarang">⚡ If Bersarang</a></li>
       <li><a href="#For">🔀 For</a></li>
+      <li><a href="#While">🔀 While</a></li>
+      <li><a href="#Nested-Loops">🔀 Nested-Loops</a></li>
     </ul>
   </nav>
 
-  <!-- MAIN CONTENT -->
   <main class="main">
     <section id="Runtunan">
       <h1>Kumpulan Soal Python</h1>
@@ -309,14 +307,36 @@
         <a class="card" href="{{ url_for('prima') }}">Angka Prima</a>
       </div>
     </section>
+
+    <section id="While">
+      <h1>Kumpulan Soal Python</h1>
+      <h2>Soal While</h2>
+      <div class="card-container">
+        <a class="card" href="{{ url_for('penjumlahan') }}">Penjumlahan</a>
+        <a class="card" href="{{ url_for('ganjil_genap_while') }}">Ganjil Genap</a> 
+      </div>
+    </section>
+
+      <section id="Nested-Loops">
+      <h1>Kumpulan Soal Python</h1>
+      <h2>Soal Nested Loops</h2>
+      <div class="card-container">
+        <a class="card" href="{{ url_for('daringcpdk1') }}">Persegi Angka</a>
+        <a class="card" href="{{ url_for('daringcpdk2') }}">Angka Berurutan</a>
+        <a class="card" href="{{ url_for('daringcpdk3') }}">Segitiga Siku Siku Angka  </a>
+        <a class="card" href="{{ url_for('daringcpdk4') }}">Jumlah Kelas Dan Siswa</a>
+        <a class="card" href="{{url_for('Segitiga_Angka')}}">Segitiga Angka </a>
+        <a class="card" href="{{url_for('Penjualan_Cabang')}}">Menghitung Penjualan Cabang </a>
+      </div>
+    </section>
   </main>
+
 
   <script>
     const hamburger = document.getElementById("hamburger");
     const sidebar = document.getElementById("sidebar");
     const hamburgerIcon = hamburger.querySelector("span");
 
-    // Toggle Sidebar
     function toggleSidebar() {
       const isOpen = sidebar.classList.toggle("open");
       hamburger.setAttribute("aria-expanded", isOpen ? "true" : "false");
@@ -325,7 +345,6 @@
     }
     hamburger.addEventListener("click", toggleSidebar);
 
-    // Close sidebar jika klik di luar
     document.addEventListener("click", (e) => {
       if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
         sidebar.classList.remove("open");
@@ -335,7 +354,6 @@
       }
     });
 
-    // Close sidebar saat klik link
     document.querySelectorAll(".sidebar a").forEach(link => {
       link.addEventListener("click", () => {
         sidebar.classList.remove("open");
@@ -344,6 +362,74 @@
         document.body.classList.remove("sidebar-open");
       });
     });
+
+  const snowCanvas = document.getElementById("snow");
+  const ctxSnow = snowCanvas.getContext("2d");
+  snowCanvas.width = window.innerWidth;
+  snowCanvas.height = window.innerHeight;
+
+  let snowflakes = [];
+
+  class Snowflake {
+    constructor() {
+      this.x = Math.random() * snowCanvas.width;
+      this.y = Math.random() * snowCanvas.height;
+      this.radius = Math.random() * 3 + 2;
+      this.speedY = Math.random() * 1 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.opacity = Math.random() * 0.5 + 0.3;
+    }
+    update() {
+      this.y += this.speedY;
+      this.x += this.speedX;
+
+      if (this.y > snowCanvas.height) {
+        this.y = -this.radius;
+        this.x = Math.random() * snowCanvas.width;
+      }
+    }
+    draw() {
+      let gradient = ctxSnow.createRadialGradient(
+        this.x, this.y, 0,
+        this.x, this.y, this.radius
+      );
+      gradient.addColorStop(0, `rgba(173, 216, 230, ${this.opacity})`); // biru muda
+      gradient.addColorStop(1, `rgba(255, 255, 255, 0)`); // fade ke transparan
+
+      ctxSnow.beginPath();
+      ctxSnow.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctxSnow.fillStyle = gradient;
+      ctxSnow.shadowColor = "rgba(173, 216, 230, 0.8)"; // glow kebiruan
+      ctxSnow.shadowBlur = 10;
+      ctxSnow.fill();
+      ctxSnow.shadowBlur = 0;
+    }
+
+  }
+
+  function initSnow() {
+    snowflakes = [];
+    for (let i = 0; i < 150; i++) {
+      snowflakes.push(new Snowflake());
+    }
+  }
+  initSnow();
+
+  function animateSnow() {
+    ctxSnow.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+    snowflakes.forEach((flake) => {
+      flake.update();
+      flake.draw();
+    });
+    requestAnimationFrame(animateSnow);
+  }
+  animateSnow();
+
+  window.addEventListener("resize", () => {
+    snowCanvas.width = window.innerWidth;
+    snowCanvas.height = window.innerHeight;
+    initSnow();
+  });
   </script>
 </body>
 </html>

@@ -5,85 +5,183 @@
   <title>Tabel Perkalian</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f4f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #38bdf8);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       min-height: 100vh;
-      padding: 40px;
-    }
-    .card {
-      background: #fff;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 400px;
-    }
-    h1 {
-      text-align: center;
+      padding: 20px;
       color: #333;
-      margin-bottom: 20px;
     }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 35px 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 450px;
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.8s ease-in-out;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1e3a8a;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      margin-top: 25px;
+      font-size: 1.3rem;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
     form {
       display: flex;
-      justify-content: center;
+      gap: 10px;
       margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
+
     input[type="number"] {
-      padding: 8px;
-      font-size: 16px;
-      width: 250px;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      flex: 1;
+      min-width: 180px;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
     }
-    button {
-      padding: 8px 16px;
-      font-size: 16px;
-      background: #08b1ff;
+
+    input[type="number"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+      transform: scale(1.02);
+    }
+
+    .btn {
+      padding: 12px 20px;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #2563eb, #1e3a8a);
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 12px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+      display: inline-block;
+      font-weight: 500;
     }
-    button:hover {
-      background: #0067ee;
+
+    .btn:hover {
+      background: linear-gradient(135deg, #1e3a8a, #0f172a);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      transform: translateY(-2px) scale(1.03);
     }
+
+    .btn-secondary {
+      display: block;
+      margin-top: 15px;
+      padding: 12px 20px;
+      background: #f1f5f9;
+      color: #1e3a8a;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      width: 90%;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+    }
+
     ul {
       list-style: none;
       padding: 0;
-    }
-    li {
-      padding: 6px 0;
-      border-bottom: 1px dashed #ddd;
-      font-size: 16px;
-      color: #444;
+      margin-top: 15px;
+      text-align: left;
     }
 
-    a{
-      text-decoration: none;
+    li {
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #333;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideIn 0.4s ease forwards;
+    }
+
+    li:nth-child(n) { animation-delay: calc(0.1s * var(--i)); }
+
+    li:hover {
+      transform: translateX(5px) scale(1.02);
+      background: #e0f2fe;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 25px 15px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      input[type="number"] {
+        font-size: 0.95rem;
+      }
+      .btn {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+        flex: 1;
+      }
     }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Hitung Perkalian</h1>
-    <form action="{{ url_for ('Perkalian')}}" method="POST">
+    
+    <form action="{{ url_for('Perkalian') }}" method="POST">
       <input type="number" name="AzkaangkaPer" placeholder="Masukkan angka" required>
-      <button type="submit">Hitung</button>
-              
+      <button type="submit" class="btn">Hitung</button>
     </form>
-    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+
+    <a href="{{ url_for('index') }}" class="btn-secondary">⬅ Kembali ke Homepage</a>     
+
     {% if AzkaangkaPer %}
       <h2>Hasil Perkalian {{ AzkaangkaPer }}</h2>
       <ul>
         {% for baris in AzkahasilPer %}
-          <li>{{ baris }}</li>
+          <li style="--i: {{ loop.index }}">{{ baris }}</li>
         {% endfor %}
       </ul>
     {% endif %}
   </div>
-
 </body>
 </html>
