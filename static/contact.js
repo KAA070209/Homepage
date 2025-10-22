@@ -1,3 +1,4 @@
+// ==================== ❄️ Efek Salju ====================
 const snowCanvas = document.getElementById("snow");
 const ctxSnow = snowCanvas.getContext("2d");
 snowCanvas.width = window.innerWidth;
@@ -65,6 +66,7 @@ window.addEventListener("resize", () => {
 });
 
 
+// ==================== 📘 Sidebar Menu ====================
 const hamburger = document.getElementById("hamburger");
 const sidebar = document.getElementById("sidebar");
 const hamburgerIcon = hamburger.querySelector("span");
@@ -103,19 +105,50 @@ document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
   });
 });
 
+
+// ==================== ✉️ Form Contact Kirim ke WhatsApp ====================
 document.getElementById("contactForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const nama = document.querySelector('input[name="nama"]').value;
-  const email = document.querySelector('input[name="email"]').value;
-  const pesan = document.querySelector('textarea[name="pesan"]').value;
+  const nama = document.querySelector('input[name="nama"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const pesan = document.querySelector('textarea[name="pesan"]').value.trim();
 
+  if (!nama || !email || !pesan) {
+    alert("Mohon isi semua kolom terlebih dahulu!");
+    return;
+  }
 
   const nomorWA = "6281285554702"; 
-
   const teks = `Halo, saya *${nama}*!\n\nEmail: ${email}\nPesan:\n${pesan}`;
   const url = `https://wa.me/${nomorWA}?text=${encodeURIComponent(teks)}`;
 
+  // Buka WhatsApp
   window.open(url, "_blank");
-});
 
+  // Tampilkan pesan sukses di bawah form
+  const successMsg = document.createElement("p");
+  successMsg.textContent = `Terima kasih, ${nama}! Pesanmu sudah terkirim 😊`;
+  successMsg.style.color = "green";
+  successMsg.style.textAlign = "center";
+  successMsg.style.marginTop = "10px";
+  successMsg.style.transition = "opacity 0.8s ease";
+
+  const oldMsg = document.querySelector(".success-message");
+  if (oldMsg) oldMsg.remove();
+
+  successMsg.classList.add("success-message");
+  document.getElementById("contactForm").insertAdjacentElement("afterend", successMsg);
+
+  // Fade in effect
+  setTimeout(() => (successMsg.style.opacity = 1), 50);
+
+  // Hapus pesan setelah 5 detik
+  setTimeout(() => {
+    successMsg.style.opacity = 0;
+    setTimeout(() => successMsg.remove(), 800);
+  }, 5000);
+
+  // Reset form
+  e.target.reset();
+});
