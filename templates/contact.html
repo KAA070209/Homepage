@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e3a8a">
+  <title>Hubungi Kami</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+</head>
+<body>
+  <canvas id="snow"></canvas>
+
+  <button class="hamburger" id="hamburger"><span>☰</span></button>
+
+    <nav class="sidebar" id="sidebar">
+    <h3>📘 Menu</h3>
+    <ul>
+        <li><a href="{{ url_for('profil') }}">📑 Profil</a></li>
+
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle">📘 Soal-Soal </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ url_for('index') }}#Runtunan">📘 Runtunan</a></li>
+            <li><a href="{{ url_for('index') }}#If-Else">⚡ If Else</a></li>
+            <li><a href="{{ url_for('index') }}#If-Bersarang">⚡ If Bersarang</a></li>
+            <li><a href="{{ url_for('index') }}#For">🔁 For</a></li>
+            <li><a href="{{ url_for('index') }}#While">🔁 While</a></li>
+            <li><a href="{{ url_for('index') }}#Nested-Loops">🔁 Nested Loops</a></li>
+        </ul>
+        </li>
+        <li><a href="{{ url_for('contact') }}">✉️ contact</a></li>
+    </ul>
+    </nav>
+
+  <main class="main">
+    <div class="contact-container">
+      <h1>Hubungi Kami</h1>
+
+      {% if sukses %}
+      <p style="color: green; text-align:center;">Terima kasih, {{ nama }}! Pesanmu sudah terkirim 😊</p>
+      {% endif %}
+
+      <form id="contactForm">
+        <label>Nama Lengkap:</label>
+        <input type="text" name="nama" placeholder="Masukkan nama kamu" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" placeholder="Masukkan email aktif" required>
+
+        <label>Pesan:</label>
+        <textarea name="pesan" rows="5" placeholder="Tulis pesan kamu..." required></textarea>
+
+        <button type="submit">Kirim Pesan</button>
+      </form>
+    </div>
+    <div class="section">
+          <h3></h3>
+          <div class="social-links">
+            <a href="mailto:m.azkanabhan07@gmail.com">📧 Email</a>
+            <a href="https://wa.me/+6281285554702">📱 WhatsApp</a>
+            <a href="https://github.com/KAA070209" target="_blank">🐙 GitHub</a>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">💼 LinkedIn</a>
+          </div>
+        </div>
+  </main>
+
+ 
+  <script src="{{ url_for('static', filename='contact.js') }}"></script>
+</body>
+</html>

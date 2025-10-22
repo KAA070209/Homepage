@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persegi Angka</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='daringcpdk1.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Persegi Angka</h2>
+        <form action="{{url_for('daringcpdk1')}}" method="POST">
+            <label>Masukkan batas akhir:</label>
+            <input type="number" name="AzkabatasCPDK" required>
+            <button type="submit">Tampilkan</button>
+        </form>
+        <div class="result">{{ AzkahasilCPDK|safe }}</div>
+        <a href="/" class="back-link">Kembali</a>
+    </div>
+</body>
+</html>

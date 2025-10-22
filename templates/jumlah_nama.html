@@ -1,24 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Input Jumlah Nama</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Jumlah Nama</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 30px;
+      color: #fff;
+    }
+
+    .card {
+      background: #1f2937;
+      padding: 25px 30px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      color: #e5e7eb;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #3b82f6;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      font-size: 15px;
+      outline: none;
+      background: #111827;
+      color: #f9fafb;
+      transition: border 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+    }
+
+    .btn {
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+    }
+    .btn-submit:hover {
+      background: linear-gradient(135deg, #1e40af, #1e3a8a);
+      transform: translateY(-2px);
+    }
+
+    .btn-home {
+      background: linear-gradient(135deg, #4b5563, #374151);
+      color: #f9fafb;
+      text-decoration: none;
+      display: block;
+    }
+    .btn-home:hover {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      transform: translateY(-2px);
+    }
+
+    ul {
+      text-align: left;
+      padding-left: 18px;
+      margin-top: 15px;
+    }
+
+    ul li {
+      margin: 6px 0;
+      padding: 8px;
+      border-radius: 6px;
+      background: #111827;
+      color: #e5e7eb;
+      border-left: 4px solid #2563eb;
+    }
+  </style>
 </head>
 <body>
-    <h1>Masukkan Jumlah Nama</h1>
+  <div class="card">
+    <h1>👤 Input Jumlah Nama</h1>
     <form action="{{ url_for('jumlah_nama')}}" method="POST">
-        <input type="text" name="AzkaNamaA" placeholder="Masukan Nama" required>
-        <input type="number" name="AzkajumlahA" min="1" required>
-        <button type="submit">Kirim</button>
+      <input type="text" name="AzkaNamaA" placeholder="Masukkan Nama" required>
+      <input type="number" name="AzkajumlahA" min="1" required placeholder="Jumlah">
+      <button type="submit" class="btn btn-submit">Kirim</button>
     </form>
-    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+    <a href="{{url_for('index')}}" class="btn btn-home">⬅ Kembali ke Homepage</a>
 
     {% if HasilAzka %}
-        <h2>Daftar Nama:</h2>
-        <ul>
-            {% for nama in HasilAzka %}
-                <li>{{ nama }}</li>
-            {% endfor %}
-        </ul>
+      <h2 style="margin-top:20px; color:#3b82f6;">Daftar Nama:</h2>
+      <ul>
+        {% for nama in HasilAzka %}
+          <li>{{ nama }}</li>
+        {% endfor %}
+      </ul>
     {% endif %}
+  </div>
 </body>
 </html>

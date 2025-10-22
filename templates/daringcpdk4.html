@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Aplikasi Rata-rata Nilai</title>
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(to bottom right, #eef2ff, #f8fafc);
+      color: #1e293b;
+      padding: 40px 15px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1e3a8a;
+      font-size: 2rem;
+      margin-bottom: 25px;
+    }
+
+    h3, h4 {
+      color: #1d4ed8;
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    a:hover {
+      color: #1e40af;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 5px;
+      color: #334155;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      transition: all 0.2s ease-in-out;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+      outline: none;
+      box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    button:hover {
+      background: #1e40af;
+      transform: translateY(-1px);
+    }
+
+    .kelas {
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 10px 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #e2e8f0;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    td {
+      background: #ffffff;
+    }
+
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 1.6rem;
+      }
+
+      form {
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      table, th, td {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      form {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .kelas {
+        padding: 15px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Aplikasi Hitung Rata-rata Nilai</h2>
+
+  {% if page == 'home_Azka' %}
+  <form method="POST" action="{{url_for('daringcpdk4')}}">
+    <label>Jumlah Kelas:</label>
+    <input type="number" name="jumlah_kelas_Azka" min="1" required>
+
+    <label>Jumlah Siswa per Kelas:</label>
+    <input type="number" name="jumlah_siswa_Azka" min="1" required>
+
+    <button type="submit">Lanjutkan</button>
+  </form>
+  {% endif %}
+
+  {% if page == 'input_Azka' %}
+  <form method="POST" action="{{ url_for('hasil') }}">
+    <input type="hidden" name="jumlah_kelas_Azka" value="{{ jumlah_kelas_Azka }}">
+    <input type="hidden" name="jumlah_siswa_Azka" value="{{ jumlah_siswa_Azka }}">
+
+    {% for i in range(jumlah_kelas_Azka) %}
+      <div class="kelas">
+        <h3>Kelas {{ class_names[i] }}</h3>
+        {% for j in range(jumlah_siswa_Azka) %}
+          <label>Nama Siswa {{ j+1 }}:</label>
+          <input type="text" name="Azkanama_{{i}}_{{j}}" required>
+          <label>Nilai:</label>
+          <input type="number" name="Azkanilai_{{i}}_{{j}}" min="0" max="100" required>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <button type="submit">Tampilkan Nilai</button>
+  </form>
+  {% endif %}
+
+  {% if page == 'hasil_Azka' %}
+    <h3>Daftar Nilai dan Rata-rata per Kelas</h3>
+    {% for kelas, daftar in data_kelas_Azka.items() %}
+      <div class="kelas">
+        <h4>{{ kelas }}</h4>
+        <table>
+          <tr><th>Nama</th><th>Nilai</th></tr>
+          {% for Azkanama, Azkanilai in daftar %}
+          <tr>
+            <td>{{ Azkanama }}</td>
+            <td>{{ Azkanilai }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td><b>Rata-rata</b></td>
+            <td><b>{{ "%.2f"|format(rata_per_kelas_Azka[kelas]) }}</b></td>
+          </tr>
+        </table>
+      </div>
+    {% endfor %}
+    <br>
+    <a href="/">← Kembali ke Awal</a>
+  {% endif %}
+
+</body>
+</html>

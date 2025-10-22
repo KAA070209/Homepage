@@ -145,7 +145,6 @@
             text-align: center;
         }
 
-        /* Receipt/Results Section */
         .receipt {
             background: #ffffff;
             width: 100%;
@@ -209,8 +208,7 @@
             color: #7f8c8d;
             font-style: italic;
         }
-        
-        /* Mobile Responsiveness */
+
         @media (max-width: 600px) {
             body {
                 padding: 15px;
@@ -241,7 +239,7 @@
                 width: 100%;
                 padding-bottom: 5px;
                 padding-top: 10px;
-                font-size: 16px; /* Prevent iOS zoom */
+                font-size: 16px;
             }
 
             input[type="text"],
@@ -250,8 +248,8 @@
                 width: 100%;
                 margin-left: 0;
                 margin-top: 5px;
-                font-size: 16px; /* Prevent iOS zoom */
-                padding: 12px; /* Larger touch target */
+                font-size: 16px;
+                padding: 12px;
             }
 
             .button-group {
@@ -260,12 +258,11 @@
 
             button {
                 font-size: 1rem;
-                padding: 14px; /* Larger touch target */
+                padding: 14px; 
             }
 
-            /* Receipt Mobile: Stacked cards instead of table */
             .receipt-table {
-                display: table; /* tetap tampil di mobile */
+                display: table;
             }
 
             .receipt-mobile {
@@ -357,7 +354,6 @@
             }
         }
 
-        /* Hide mobile receipt on desktop */
         .receipt-mobile {
             display: none;
         }
@@ -408,8 +404,7 @@
             <div class="receipt">
                 <h2>Hasil Pemesanan Tiket</h2>
                 <div class="line"></div>
-                
-                <!-- Desktop Table -->
+
                 <table class="receipt-table">
                     <tr>
                         <td>Nama Pembeli</td>

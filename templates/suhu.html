@@ -37,7 +37,7 @@
       width: 100%;
       max-width: 400px;
       box-sizing: border-box;
-      margin-bottom: 20px; /* Space between form and results on small screens */
+      margin-bottom: 20px;
     }
     table {
       width: 100%;
@@ -97,7 +97,6 @@
         font-weight: normal;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 600px) {
         body {
             padding: 15px;
@@ -143,7 +142,7 @@
         </tr>
         <tr>
           <td>Suhu (°C)</td>
-          <td><input type="number" name="AzkaSuhu" required></td>
+          <td><input type="number" name="AzkaSuhu" min="0" max="60" required></td>
         </tr>
       </table>
       <button type="submit">Kirim</button>

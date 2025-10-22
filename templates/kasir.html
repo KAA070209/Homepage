@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form Pembelian</title>
   <style>
-    body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: "Poppins", sans-serif;
-      background: linear-gradient(-45deg, #667eea, #764ba2, #ff6b6b, #fcb045);
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(120deg, #667eea, #764ba2, #ff6b6b, #fcb045);
       background-size: 400% 400%;
       animation: gradientBG 12s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      flex-direction: column;
+      padding: 20px;
     }
 
     @keyframes gradientBG {
@@ -23,141 +30,109 @@
       100% {background-position: 0% 50%;}
     }
 
-    form {
-      position: relative;
+    .card {
       background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      padding: 30px 40px;
-      border-radius: 20px;
-      width: 350px;
-      z-index: 1;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 30px;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+      color: #fff;
+      margin-bottom: 25px;
+      animation: fadeIn 0.8s ease;
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
-    /* Border RGB Animasi */
-    form::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 20px;
-      padding: 3px; /* ketebalan border */
-      background: linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
-      background-size: 400% 400%;
-      -webkit-mask: 
-        linear-gradient(#000 0 0) content-box, 
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude; 
-      animation: borderRGB 20s linear infinite;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
-    @keyframes borderRGB {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    form h2 {
+    .card h2 {
       text-align: center;
-      margin-bottom: 20px;
-      color: #fff;
+      margin-bottom: 25px;
       font-weight: 700;
-      letter-spacing: 1px;
-      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.25);
     }
 
-    table { width: 100%; }
-    td { padding: 10px 5px; font-size: 15px; color: #fff; font-weight: 500; }
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-    input {
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+      font-weight: 500;
+    }
+
+    input, select {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: none;
-      background: rgba(255,255,255,0.2);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255, 255, 255, 0.15);
       color: #fff;
       font-size: 14px;
-      transition: all 0.4s ease;
-      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
     }
-    select{
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: none;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-      font-size: 14px;
-      transition: all 0.4s ease;
-      backdrop-filter: blur(5px);
-    }
+
     input::placeholder { color: rgba(255,255,255,0.7); }
     select option { color: #333; }
 
     input:focus, select:focus {
-      border: 2px solid #fff;
-      background: rgba(255,255,255,0.3);
-      box-shadow: 0 0 20px rgba(255,255,255,1);
-      transform: scale(1.05);
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 0 10px rgba(255,255,255,0.7);
       outline: none;
+      transform: scale(1.02);
     }
 
     button {
-      margin-top: 25px;
+      margin-top: 20px;
       width: 100%;
       padding: 12px;
       background: linear-gradient(135deg, #ff6b6b, #fcb045);
       border: none;
+      border-radius: 12px;
       color: #fff;
       font-size: 16px;
-      font-weight: bold;
-      border-radius: 12px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.4s ease;
+      transition: all 0.3s ease;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     button:hover {
       background: linear-gradient(135deg, #fcb045, #ff6b6b);
-      transform: translateY(-3px) scale(1.05);
+      transform: translateY(-3px);
       box-shadow: 0 10px 25px rgba(255,255,255,0.9);
     }
 
-
-    .body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(135deg, #1a73e8, #0d47a1);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #333;
-    }
-
-    .container {
+    .result-card {
       background: #fff;
-      padding: 30px;
+      color: #333;
       border-radius: 16px;
-      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
-      width: 500px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
       animation: fadeInUp 0.8s ease-in-out;
+      max-width: 500px;
+      width: 100%;
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
+    .result-card h2 {
       color: #1a73e8;
       font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
     }
 
     td {
@@ -168,7 +143,7 @@
     td:first-child {
       font-weight: 600;
       color: #555;
-      width: 40%;
+      width: 45%;
     }
 
     td:last-child {
@@ -184,126 +159,96 @@
       color: #1a73e8;
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .btn {
+    .btn-print {
       display: block;
       margin: 20px auto 0;
-      padding: 10px 20px;
+      padding: 12px 22px;
       background: #1a73e8;
       color: #fff;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 15px;
       transition: 0.3s;
     }
 
-    .btn:hover {
+    .btn-print:hover {
       background: #0d47a1;
       transform: scale(1.05);
+    }
+
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    @media(max-width: 500px) {
+      .card, .result-card {
+        padding: 20px;
+      }
+      .card h2, .result-card h2 {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <form action="{{ url_for('kasir') }}" method="post">
-    <h2>Form Pembelian</h2>
-    <table>
-      <tr>
-        <td>Nama Pelanggan</td>
-        <td><input type="text" name="AzkaNamaKasir" placeholder="Masukkan Nama"></td>
-      </tr>
-      <tr>
-        <td>Nama Barang</td>
-        <td><input type="text" name="AzkaBarang" placeholder="Masukkan Barang"></td>
-      </tr>
-      <tr>
-        <td>Harga Per(unit)</td>
-        <td><input type="number" name="AzkaHarga" placeholder="Contoh: 50000"></td>
-      </tr>
-      <tr>
-        <td>Jumlah Barang</td>
-        <td><input type="number" name="AzkaJumlahBarang" placeholder="Jumlah"></td>
-      </tr>
-      <tr>
-        <td>Kategori</td>
-        <td>
-          <select name="AzkaKategori" required>
-            <option value="">-- Pilih Kategori --</option>
-            <option value="Makanan">Makanan</option>
-            <option value="Minuman">Minuman</option>
-            <option value="lainnya">Lainnya</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>Metode Pembayaran</td>
-        <td>
-          <select name="AzkaPembayaran" required>
-            <option value="">-- Pilih Pembayaran --</option>
-            <option value="Cash">Cash</option>
-            <option value="Transfer">Transfer</option>
-          </select>
-        </td>
-      </tr>
-    </table>
-    <input type="submit" name="" id="">   
-    <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>     
+  <form action="{{ url_for('kasir') }}" method="post" class="card">
+    <h2>🛒 Form Pembelian</h2>
+
+    <div class="form-group">
+      <label>Nama Pelanggan</label>
+      <input type="text" name="AzkaNamaKasir" placeholder="Masukkan Nama" required>
+    </div>
+    <div class="form-group">
+      <label>Nama Barang</label>
+      <input type="text" name="AzkaBarang" placeholder="Masukkan Barang" required>
+    </div>
+    <div class="form-group">
+      <label>Harga Satuan</label>
+      <input type="number" name="AzkaHarga" placeholder="Contoh: 50000" required>
+    </div>
+    <div class="form-group">
+      <label>Jumlah Barang</label>
+      <input type="number" name="AzkaJumlahBarang" placeholder="Jumlah" required>
+    </div>
+    <div class="form-group">
+      <label>Kategori</label>
+      <select name="AzkaKategori" required>
+        <option value="">-- Pilih Kategori --</option>
+        <option value="Makanan">Makanan</option>
+        <option value="Minuman">Minuman</option>
+        <option value="lainnya">Lainnya</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Metode Pembayaran</label>
+      <select name="AzkaPembayaran" required>
+        <option value="">-- Pilih Pembayaran --</option>
+        <option value="Cash">Cash</option>
+        <option value="Transfer">Transfer</option>
+      </select>
+    </div>
+
+    <button type="submit">Proses Pembelian</button>
+    <button type="button" onclick="window.location.href='{{ url_for('index') }}'">🏠 Kembali ke Homepage</button>
   </form>
- 
+
   {% if AzkaNamaKasir %}
-  <div class=".body">
-   <div class="container">
-    <h2>Detail Transaksi</h2>
+  <div class="result-card">
+    <h2>📑 Detail Transaksi</h2>
     <table>
-      <tr>
-        <td>Nama Pelanggan</td>
-        <td>{{AzkaNamaKasir}}</td>
-      </tr>
-      <tr>
-        <td>Barang</td>
-        <td>{{AzkaBarang}}</td>
-      </tr>
-      <tr>
-        <td>Kategori</td>
-        <td>{{AzkaKategori}}</td>
-      </tr>
-      <tr>
-        <td>Harga Satuan</td>
-        <td>Rp {{AzkaHarga}}</td>
-      </tr>
-      <tr>
-        <td>Jumlah</td>
-        <td>{{AzkaJumlahBarang}}</td>
-      </tr>
-      <tr>
-        <td>Total Harga</td>
-        <td>Rp {{AzkaSub}}</td>
-      </tr>
-      <tr>
-        <td>Diskon</td>
-        <td>{{AzkaDiskon}}%</td>
-      </tr>
-      <tr>
-        <td>Metode Pembayaran</td>
-        <td>{{AzkaPembayaran}}</td>
-      </tr>
-      <tr>
-        <td>Total Bayar</td>
-        <td>Rp {{"{:,}".format(AzkaTotal)}}</td>
-      </tr>
+      <tr><td>Nama Pelanggan</td><td>{{AzkaNamaKasir}}</td></tr>
+      <tr><td>Barang</td><td>{{AzkaBarang}}</td></tr>
+      <tr><td>Kategori</td><td>{{AzkaKategori}}</td></tr>
+      <tr><td>Harga Satuan</td><td>Rp {{"{:,}".format(AzkaHarga)}}</td></tr>
+      <tr><td>Jumlah</td><td>{{AzkaJumlahBarang}}</td></tr>
+      <tr><td>Total Harga</td><td>Rp {{"{:,}".format(AzkaSub)}}</td></tr>
+      <tr><td>Diskon</td><td>Rp {{"{:,}".format(AzkaDiskon)}}</td></tr>
+      <tr><td>Metode Pembayaran</td><td>{{AzkaPembayaran}}</td></tr>
+      <tr><td>Total Bayar</td><td>Rp {{"{:,}".format(AzkaTotal)}}</td></tr>
     </table>
-    <button class="btn" onclick="window.print()">Cetak Nota</button>
-  </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Cetak Nota</button>
   </div>
   {% endif %}
 </body>

@@ -27,7 +27,6 @@
       animation: fadeIn 0.6s ease-in-out;
     }
 
-    /* Sidebar */
     .sidebar {
       width: 240px;
       background: linear-gradient(180deg, var(--primary), var(--primary-light));
@@ -64,7 +63,6 @@
       transform: translateX(6px);
     }
 
-    /* Main */
     .main {
       flex: 1;
       padding: 40px;
@@ -168,7 +166,6 @@
       transform: translateY(-2px);
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       position: fixed;
@@ -190,7 +187,6 @@
       transform: scale(1.05);
     }
 
-    /* Overlay */
     .overlay {
       display: none;
       position: fixed;
@@ -206,13 +202,11 @@
       opacity: 1;
     }
 
-    /* Animations */
     @keyframes fadeIn {
       from {opacity:0; transform: translateY(10px);}
       to {opacity:1; transform: translateY(0);}
     }
 
-    /* Mobile */
     @media (max-width: 768px) {
       body {flex-direction: column;}
       .hamburger {display: block;}
@@ -229,7 +223,6 @@
       .main {padding: 20px; margin-top: 60px;}
       .card {padding: 20px;}
 
-      /* Table → responsif */
       .card table, .card tr, .card td {
         display: block;
         width: 100%;
@@ -261,31 +254,81 @@
       .card td:last-child {font-size: 15px;}
       .profile-bio {font-size: 14px;}
     }
+      .dropdown-menu {
+    list-style: none;
+    margin-left: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .dropdown.open .dropdown-menu {
+    max-height: 400px;
+    opacity: 1;
+  }
+
+  .dropdown-menu li {
+    margin: 8px 0;
+    animation: fadeInRight 0.4s ease forwards;
+  }
+
+  .dropdown-menu li a {
+    font-size: 14px;
+    padding: 8px 12px;
+    color: #e0f2fe;
+  }
+
+  .dropdown-menu li a:hover {
+    background: rgba(255,255,255,0.25);
+    transform: translateX(6px);
+  }
+
+  .dropdown-toggle::after {
+    content: "";
+    float: right;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    padding: 4px;
+    margin-top: 6px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown.open .dropdown-toggle::after {
+    transform: rotate(-135deg);
+  }
+
   </style>
 </head>
 <body>
-  <!-- Hamburger Button -->
   <button class="hamburger" id="hamburger">☰</button>
   <div class="overlay" id="overlay"></div>
 
-  <!-- Sidebar -->
-  <nav class="sidebar" id="sidebar">
-    <h3>📘 Menu</h3>
-    <ul>
-      <li><a href="{{ url_for('profil') }}" class="active">📑 Profil</a></li>
-      <li><a href="{{ url_for('index') }}#Runtunan">📑 Runtunan</a></li>
-      <li><a href="{{ url_for('index') }}#If-Else">⚡ If Else</a></li>
-      <li><a href="{{ url_for('index') }}#If-Bersarang">🔀 If Bersarang</a></li>
-      <li><a href="{{ url_for('index') }}#For">🔀 For</a></li>
-    </ul>
-  </nav>
+<nav class="sidebar" id="sidebar">
+  <h3>📘 Menu</h3>
+  <ul>
+    <li><a href="{{ url_for('profil') }}">📑 Profil</a></li>
 
-  <!-- Main -->
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle">📘 Soal-Soal </a>
+      <ul class="dropdown-menu">
+        <li><a href="{{ url_for('index') }}#Runtunan">📘 Runtunan</a></li>
+        <li><a href="{{ url_for('index') }}#If-Else">⚡ If Else</a></li>
+        <li><a href="{{ url_for('index') }}#If-Bersarang">⚡ If Bersarang</a></li>
+        <li><a href="{{ url_for('index') }}#For">🔁 For</a></li>
+        <li><a href="{{ url_for('index') }}#While">🔁 While</a></li>
+        <li><a href="{{ url_for('index') }}#Nested-Loops">🔁 Nested Loops</a></li>
+      </ul>
+    </li>
+    <li><a href="{{ url_for('contact') }}">✉️ contact</a></li>
+  </ul>
+</nav>
+
   <main class="main">
     <div class="card">
       <h2>Profil Muhammad Azka Sa’adi Nabhan</h2>
-      
-      <!-- Profile Header with Image and Bio -->
+
       <div class="profile-header">
         <img src="/static/profil.jpeg" alt="Foto Profil Muhammad Azka Sa’adi Nabhan" class="profile-image">
         <p class="profile-bio">
@@ -293,7 +336,6 @@
         </p>
       </div>
 
-      <!-- Basic Information Table -->
       <div class="section">
         <h3>Informasi Pribadi</h3>
         <table>
@@ -313,7 +355,6 @@
         </table>
       </div>
 
-      <!-- Hobbies Section -->
       <div class="section">
         <h3>Hobi & Minat</h3>
         <ul class="hobbies-list">
@@ -323,7 +364,6 @@
         </ul>
       </div>
 
-      <!-- Education Section -->
       <div class="section">
         <h3>Riwayat Pendidikan</h3>
         <ul class="education-list">
@@ -334,19 +374,7 @@
         </ul>
       </div>
 
-      <!-- Achievements Section -->
       
-
-      <!-- Social Links -->
-      <div class="section">
-        <h3>Hubungi Saya</h3>
-        <div class="social-links">
-          <a href="mailto:m.azkanabhan07@gmail.com">📧 Email</a>
-          <a href="https://wa.me/+6281285554702">📱 WhatsApp</a>
-          <a href="https://github.com/KAA070209" target="_blank">🐙 GitHub</a>
-          <a href="https://linkedin.com/in/yourprofile" target="_blank">💼 LinkedIn</a>
-        </div>
-      </div>
     </div>
   </main>
 
@@ -366,6 +394,13 @@
       overlay.classList.remove('show');
       hamburger.textContent = '☰';
     });
+    document.querySelectorAll(".dropdown-toggle").forEach(toggle => {
+    toggle.addEventListener("click", e => {
+      e.preventDefault();
+      const parent = toggle.parentElement;
+      parent.classList.toggle("open");
+    });
+  });
   </script>
 </body>
 </html>

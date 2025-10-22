@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Segitiga Angka</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(to bottom right, #eef2ff, #f8fafc);
+            color: #1e293b;
+            padding: 40px 15px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1e3a8a;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        form {
+            background: #ffffff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 5px;
+            color: #334155;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+
+        .result {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            font-family: monospace;
+            white-space: pre-wrap;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            form {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .result {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            .result {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Aplikasi Segitiga Batas Awal Dan Batas Akhir</h2>
+
+    <form action="{{url_for('Segitiga_Angka')}}" method="post">
+        <label for="AzkaAngkaSA1">Batas Awal:</label>
+        <input type="number" name="AzkaAngkaSA1" id="AzkaAngkaSA1" required>
+
+        <label for="AzkaAngkaSA2">Batas Akhir:</label>
+        <input type="number" name="AzkaAngkaSA2" id="AzkaAngkaSA2" required>
+
+        <button type="submit">Kirim</button>
+    </form>
+
+    {% if AzkahasilSA %}
+    <div class="result">{{ AzkahasilSA|safe }}</div>
+    {% endif %}
+
+    <a href="/">← Kembali ke Awal</a>
+</body>
+</html>

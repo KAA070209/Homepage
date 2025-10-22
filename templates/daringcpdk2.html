@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soal 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='daringcpdk2.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Soal 2</h2>
+        <form action="{{url_for('daringcpdk2')}}" method="POST">
+            <label>Masukkan batas akhir:</label>
+            <input type="number" name="AzkabatasCPDK2" required>
+            <button type="submit">Tampilkan</button>
+        </form>
+        <div class="result">{{ AzkahasilCPDK2|safe }}</div>
+        <a href="/" class="back-link">Kembali</a>
+    </div>
+</body>
+</html>

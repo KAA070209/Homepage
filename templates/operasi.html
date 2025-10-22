@@ -3,26 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Operator Aritmatika</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #ffffff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #0077b6;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 6px 0;
+        }
+
+        br {
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #023e8a;
+            transform: scale(1.05);
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        hr {
+            border: 1px solid #90e0ef;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 
-        <h1>OPERATOR ARITMATIKA</h1>
-        <P>a = {{azka}}</P>
-        <P>b = {{bazka}}</P>
+    <div class="container">
+        <h1>Operator Aritmatika</h1>
+        <p>a = {{azka}}</p>
+        <p>b = {{bazka}}</p>
         <br>
         <p>A + B = {{Azka1}}</p>
         <p>A - B = {{Azka2}}</p>
         <p>A / B = {{Azka3}}</p>
-        <p>A * B = {{Azka4}}</p><br>
-        <h1>OPERATOR PERBANDINGAN</h1>
-        <P>a = {{azka}}</P>
-        <P>b = {{bazka}}</P><br>
-        <p>A == B :{{Azka5}}</p>
-        <p>A > B :{{Azka6}}</p>
-        <p>A < B :{{Azka7}}</p>
-        <p>A <= B :{{Azka8}}</p>
-        <p>A >= B :{{Azka9}}</p>
-        <button><a href="{{url_for('index')}}">kembali ke Homepage</a></button>           
+        <p>A * B = {{Azka4}}</p>
+
+        <hr>
+
+        <h1>Operator Perbandingan</h1>
+        <p>a = {{azka}}</p>
+        <p>b = {{bazka}}</p>
+        <br>
+        <p>A == B : {{Azka5}}</p>
+        <p>A > B : {{Azka6}}</p>
+        <p>A < B : {{Azka7}}</p>
+        <p>A <= B : {{Azka8}}</p>
+        <p>A >= B : {{Azka9}}</p>
+
+        <button><a href="{{ url_for('index') }}">Kembali ke Homepage</a></button>
+    </div>
+
 </body>
 </html>

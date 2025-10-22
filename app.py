@@ -1,19 +1,28 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
 from dotenv import dotenv_values
 
 application = Flask(__name__)
 
-# Load konfigurasi dari .env
 application.config.update(dotenv_values(".env"))
 
 
-@application.route('/')
+@application.route('/index')
 def index():
     return render_template("index.html")
 
-@application.route("/profil")
+@application.route("/")
 def profil():
     return render_template("profil.html")
+
+@application.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        nama = request.form["nama"]
+        email = request.form["email"]
+        pesan = request.form["pesan"]
+        return render_template("contact.html", sukses=True, nama=nama)
+    return render_template("contact.html")
+
 
 
 @application.route("/suhu", methods=["GET", "POST"])
@@ -417,37 +426,56 @@ def bioskop():
 def kasir():
     if request.method == 'POST':
         AzkaNamaKasir = request.form["AzkaNamaKasir"]
-        AzkaHarga = int (request.form["AzkaHarga"])
+        AzkaHarga = int(request.form["AzkaHarga"])
         AzkaBarang = request.form["AzkaBarang"]
-        AzkaJumlahBarang = int (request.form["AzkaJumlahBarang"])
+        AzkaJumlahBarang = int(request.form["AzkaJumlahBarang"])
         AzkaPembayaran = request.form["AzkaPembayaran"]
         AzkaKategori = request.form["AzkaKategori"]
-        AzkaSub = AzkaHarga*AzkaJumlahBarang
+
+        AzkaSub = AzkaHarga * AzkaJumlahBarang
+
         if AzkaKategori == "Makanan":
             if AzkaSub >= 50000:
-                AzkaDiskon = int (AzkaSub*0.1)
+                AzkaDiskon = int(AzkaSub * 0.1)
             else:
-                AzkaDiskon= int (AzkaSub*0.05)   
-        elif AzkaSub == "Minuman" :
-            if AzkaHarga >= 30000:
-                AzkaDiskon = int (AzkaSub*0.07)
-            else:
-                AzkaDiskon = int (AzkaSub*0.03)
-        elif AzkaSub == "lainnya" :
-            if AzkaHarga >= 100000:
-                AzkaDiskon = int (AzkaSub*0.08)
-            else :
-                AzkaDiskon = int (AzkaSub*0.02)
+                AzkaDiskon = int(AzkaSub * 0.05)
 
-        if AzkaPembayaran == "Transfer" :
+        elif AzkaKategori == "Minuman":
+            if AzkaHarga >= 30000:
+                AzkaDiskon = int(AzkaSub * 0.07)
+            else:
+                AzkaDiskon = int(AzkaSub * 0.03)
+
+        elif AzkaKategori == "lainnya":
+            if AzkaHarga >= 100000:
+                AzkaDiskon = int(AzkaSub * 0.08)
+            else:
+                AzkaDiskon = int(AzkaSub * 0.02)
+
+        else:
+            AzkaDiskon = 0   
+
+
+        if AzkaPembayaran == "Transfer":
             AzkaAdmin = 2500
         else:
             AzkaAdmin = 0
 
-
         AzkaTotal = AzkaSub - AzkaDiskon + AzkaAdmin
 
-        return render_template("kasir.html",AzkaKategori=AzkaKategori,AzkaNamaKasir=AzkaNamaKasir,AzkaBarang=AzkaBarang,AzkaJumlahBarang=AzkaJumlahBarang,AzkaHarga=AzkaHarga,AzkaSub=AzkaSub,AzkaPembayaran=AzkaPembayaran,AzkaDiskon=AzkaDiskon,AzkaTotal=AzkaTotal)
+        return render_template(
+            "kasir.html",
+            AzkaKategori=AzkaKategori,
+            AzkaNamaKasir=AzkaNamaKasir,
+            AzkaBarang=AzkaBarang,
+            AzkaJumlahBarang=AzkaJumlahBarang,
+            AzkaHarga=AzkaHarga,
+            AzkaSub=AzkaSub,
+            AzkaPembayaran=AzkaPembayaran,
+            AzkaDiskon=AzkaDiskon,
+            AzkaAdmin=AzkaAdmin,
+            AzkaTotal=AzkaTotal
+        )
 
     return render_template("kasir.html")
 
@@ -654,5 +682,188 @@ def prima():
 
     return render_template('prima.html', AzkaAngkaP=AzkaAngkaP,AzkaKetP=AzkaKetP )
 
+@application.route('/penjumlahan', methods=['GET', 'POST'])
+def penjumlahan():
+    if request.method == "POST":
+        AzkaAngkaP = int(request.form['AzkaAngkaP'])
+
+        iP = 1
+        AzkajumlahP = 0
+
+        while iP <= AzkaAngkaP:
+            AzkajumlahP += iP
+            iP += 1
+
+        return render_template('penjumlahan.html', AzkajumlahP=AzkajumlahP, AzkaAngkaP=AzkaAngkaP)
+
+    return render_template('penjumlahan.html')
+
+@application.route("/ganjil_genap_while", methods=['GET','POST'])
+def ganjil_genap_while():
+    if request.method == "POST":
+            AzkaAngkaW = int(request.form['AzkaAngkaW'])
+            iW = 1
+            AzkajumlahgenapW = 0
+            Azkajumlah_ganjilW = 0
+
+            while iW <= AzkaAngkaW:
+                if iW % 2 == 0:
+                    AzkajumlahgenapW += iW
+                else:
+                    Azkajumlah_ganjilW += iW
+                iW += 1
+
+            return render_template(
+                    'ganjil_genap_while.html',
+                    AzkaAngkaW=AzkaAngkaW,
+                    AzkajumlahgenapW=AzkajumlahgenapW,
+                    Azkajumlah_ganjilW=Azkajumlah_ganjilW
+                )
+    return render_template('ganjil_genap_while.html')
+
+@application.route('/daringcpdk1', methods=['GET', 'POST'])
+def daringcpdk1():
+    AzkahasilCPDK = ""
+    if request.method == 'POST':
+        AzkabatasCPDK = int(request.form['AzkabatasCPDK'])
+        for iAzkaCPDK in range(1, AzkabatasCPDK + 1):
+            for jAzkaCPDK in range(1, AzkabatasCPDK + 1):
+                AzkahasilCPDK += str(iAzkaCPDK * jAzkaCPDK) + " "
+            AzkahasilCPDK += "<br>"
+        return render_template('daringcpdk1.html', AzkahasilCPDK=AzkahasilCPDK)
+    return render_template("daringcpdk1.html")
+
+@application.route('/daringcpdk2', methods=['GET', 'POST'])
+def daringcpdk2():
+    AzkahasilCPDK2 = ""
+    if request.method == 'POST':
+        AzkabatasCPDK2 = int(request.form['AzkabatasCPDK2'])
+        for iAzkaCPDK2 in range(1, AzkabatasCPDK2 + 1):
+            for jAzkaCPDK2 in range(1, AzkabatasCPDK2 + 1):
+                AzkahasilCPDK2 += str(iAzkaCPDK2) + " "
+            AzkahasilCPDK2 += "<br>"
+        return render_template('daringcpdk2.html', AzkahasilCPDK2=AzkahasilCPDK2)
+    return render_template("daringcpdk2.html")
+
+@application.route('/daringcpdk3', methods=['GET', 'POST'])
+def daringcpdk3():
+    AzkahasilCPDK3 = ""
+    if request.method == 'POST':
+        AzkabatasCPDK3 = int(request.form['AzkabatasCPDK3'])
+        for iAzkaCPDK3 in range(AzkabatasCPDK3):
+            AzkaangkaCPDK3 = 1
+            for jAzkaCPDK3 in range(iAzkaCPDK3 + 1):
+                AzkahasilCPDK3 += str(AzkaangkaCPDK3) + " "
+                AzkaangkaCPDK3 = AzkaangkaCPDK3 * (iAzkaCPDK3-jAzkaCPDK3)//(jAzkaCPDK3+1)
+            AzkahasilCPDK3 += "<br>"
+        return render_template('daringcpdk3.html', AzkahasilCPDK3=AzkahasilCPDK3)
+    return render_template("daringcpdk3.html")
+
+@application.route('/daringcpdk4', methods=['GET', 'POST'])
+def daringcpdk4():
+    if request.method == 'POST':
+        jumlah_kelas_Azka = int(request.form['jumlah_kelas_Azka'])
+        jumlah_siswa_Azka = int(request.form['jumlah_siswa_Azka'])
+        return redirect(url_for('input_nilai', jumlah_kelas_Azka=jumlah_kelas_Azka, jumlah_siswa_Azka=jumlah_siswa_Azka))
+    return render_template('daringcpdk4.html', page='home_Azka')
+
+
+@application.route('/input_nilai', methods=['GET', 'POST'])
+def input_nilai():
+    jumlah_kelas_Azka = int(request.args.get('jumlah_kelas_Azka', 0))
+    jumlah_siswa_Azka = int(request.args.get('jumlah_siswa_Azka', 0))
+    class_names = [chr(65 + i) for i in range(jumlah_kelas_Azka)]
+    return render_template('daringcpdk4.html', page='input_Azka',
+                           jumlah_kelas_Azka=jumlah_kelas_Azka,
+                           jumlah_siswa_Azka=jumlah_siswa_Azka,
+                           class_names=class_names)
+
+
+@application.route('/hasil', methods=['POST'])
+def hasil():
+    jumlah_kelas_Azka = int(request.form['jumlah_kelas_Azka'])
+    jumlah_siswa_Azka = int(request.form['jumlah_siswa_Azka'])
+
+    data_kelas_Azka = {}
+    rata_per_kelas_Azka = {}
+
+    for i in range(jumlah_kelas_Azka):
+        nama_kelas_Azka = f"Kelas {chr(65 + i)}"
+        data_kelas_Azka[nama_kelas_Azka] = []
+        total_Azka = 0
+        for j in range(jumlah_siswa_Azka):
+            Azkanama = request.form[f'Azkanama_{i}_{j}']
+            Azkanilai = float(request.form[f'Azkanilai_{i}_{j}'])
+            data_kelas_Azka[nama_kelas_Azka].append((Azkanama, Azkanilai))
+            total_Azka += Azkanilai
+        rata_per_kelas_Azka[nama_kelas_Azka] = total_Azka / jumlah_siswa_Azka
+
+    return render_template('daringcpdk4.html', page='hasil_Azka',
+                           data_kelas_Azka=data_kelas_Azka,
+                           rata_per_kelas_Azka=rata_per_kelas_Azka)
+
+@application.route('/Segitiga_Angka', methods=['GET', 'POST'])
+def Segitiga_Angka():
+    AzkahasilSA = ""
+    if request.method == 'POST':
+        AzkaAngkaSA1 = int(request.form['AzkaAngkaSA1'])
+        AzkaAngkaSA2 = int(request.form['AzkaAngkaSA2'])
+        for iAzkaSA in range(AzkaAngkaSA1,AzkaAngkaSA2+1):
+            for jAzkaSA in range(AzkaAngkaSA1,iAzkaSA+1):
+                AzkahasilSA += str(jAzkaSA) + " "
+            AzkahasilSA += "<br>"
+        return render_template('Segitiga_Angka.html', AzkahasilSA=AzkahasilSA)
+    return render_template('Segitiga_Angka.html')
+
+@application.route('/Penjualan_Cabang', methods=['GET', 'POST'])
+def Penjualan_Cabang():
+    if request.method == 'POST':
+        jumlah_cabang_Azka = int(request.form['jumlah_cabang_Azka'])
+        return redirect(url_for('input_barang', jumlah_cabang_Azka=jumlah_cabang_Azka))
+    return render_template('Penjualan_Cabang.html', page='home')
+
+@application.route('/input_barang', methods=['GET', 'POST'])
+def input_barang():
+    jumlah_cabang_Azka = int(request.args.get('jumlah_cabang_Azka', 0))
+
+    if request.method == 'POST':
+        return redirect(url_for('hasil_Azka'))
+
+    return render_template('Penjualan_Cabang.html', page='input_barang', jumlah_cabang_Azka=jumlah_cabang_Azka)
+
+@application.route('/hasil_detail', methods=['GET', 'POST'])
+def hasil_detail():
+    if request.method == 'POST' and 'lanjut' in request.form:
+        jumlah_cabang_Azka = int(request.form['jumlah_cabang_Azka'])
+        data_Azka = []
+
+        for iAzkaCabang in range(jumlah_cabang_Azka):
+            jumlah_barang_Azka = int(request.form[f'jumlah_barang_Azka_{iAzkaCabang}'])
+            data_Azka.append(jumlah_barang_Azka)
+
+        return render_template('Penjualan_Cabang.html', page='detail_barang', jumlah_cabang_Azka=jumlah_cabang_Azka, data_Azka=data_Azka)
+    return redirect(url_for('Penjualan_Cabang'))
+
+@application.route('/hasil_Azka', methods=['POST'])
+def hasil_Azka():
+    jumlah_cabang_Azka = int(request.form['jumlah_cabang_Azka'])
+    grand_total_Azka = 0
+    hasil_data_Azka = [] 
+
+    for iAzkaCabang in range(jumlah_cabang_Azka):
+        jumlah_barang_Azka = int(request.form[f'jumlah_barang_Azka_{iAzkaCabang}'])
+        cabang_data_Azka = []
+        total_cabang_Azka = 0
+        for jAzkaCabang in range(jumlah_barang_Azka):
+            nama_Azka = request.form[f'nama_Azka_{iAzkaCabang}_{jAzkaCabang}']
+            harga_Azka = int(request.form[f'harga_Azka_{iAzkaCabang}_{jAzkaCabang}'])
+            qty_Azka = int(request.form[f'qty_Azka_{iAzkaCabang}_{jAzkaCabang}'])
+            total_Azka = harga_Azka * qty_Azka
+            total_cabang_Azka += total_Azka
+            cabang_data_Azka.append({'no': jAzkaCabang + 1, 'nama': nama_Azka, 'harga': harga_Azka, 'qty': qty_Azka, 'total': total_Azka})
+        hasil_data_Azka.append({'cabang': iAzkaCabang + 1, 'barang': cabang_data_Azka, 'total_cabang': total_cabang_Azka})
+        grand_total_Azka += total_cabang_Azka
+
+    return render_template('Penjualan_Cabang.html', page='hasil_Azka', hasil_data_Azka=hasil_data_Azka, grand_total_Azka=grand_total_Azka)
 if __name__ == '__main__':
     application.run(debug=True)
